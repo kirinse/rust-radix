@@ -10,7 +10,9 @@ use leptos::{
     html::{AnyElement, Div},
     *,
 };
+use once_cell::sync::Lazy;
 use radix_leptos_arrow::Arrow as ArrowPrimitive;
+use radix_leptos_context::{create_context_scope, Context, ContextScope, Scope};
 use radix_leptos_use_size::use_size;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::JsCast;
@@ -54,13 +56,22 @@ pub enum UpdatePositionStrategy {
     Always,
 }
 
+const POPPER_NAME: &str = "Popper";
+static POPPER_CONTEXT_SCOPE: Lazy<ContextScope<PopperContextValue>> =
+    Lazy::new(|| create_context_scope(POPPER_NAME, None));
+static POPPER_CONTEXT: Lazy<Context<PopperContextValue>> =
+    Lazy::new(|| POPPER_CONTEXT_SCOPE.create_context(POPPER_NAME, None));
+
 #[derive(Clone)]
-struct PopperContextValue {
+pub struct PopperContextValue {
     pub anchor_ref: NodeRef<Div>,
 }
 
 #[component]
-pub fn Popper(children: Children) -> impl IntoView {
+pub fn Popper(
+    #[prop(into, optional)] __scope_popper: MaybeProp<Scope<PopperContextValue>>,
+    children: Children,
+) -> impl IntoView {
     let anchor_ref = create_node_ref::<Div>();
 
     let context_value = PopperContextValue { anchor_ref };
@@ -72,11 +83,16 @@ pub fn Popper(children: Children) -> impl IntoView {
     }
 }
 
+const ANCHOR_NAME: &str = "PopperAnchor";
+
 #[component]
 pub fn PopperAnchor(
+    #[prop(into, optional)] __scope_popper: MaybeProp<Scope<PopperContextValue>>,
     #[prop(attrs)] attrs: Vec<(&'static str, Attribute)>,
     children: Children,
 ) -> impl IntoView {
+    let context = POPPER_CONTEXT.use_context(ANCHOR_NAME, __scope_popper.get());
+
     let context: PopperContextValue = expect_context();
     let anchor_ref = context.anchor_ref;
 
