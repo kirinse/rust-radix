@@ -1,6 +1,9 @@
 use std::{cell::RefCell, rc::Rc};
 
-use leptos::{create_signal, html::AnyElement, on_cleanup, Effect, NodeRef, ReadSignal, SignalSet};
+use leptos::{
+    html::AnyElement,
+    prelude::{on_cleanup, signal, Effect, NodeRef, ReadSignal, Set},
+};
 use web_sys::{
     wasm_bindgen::{closure::Closure, JsCast},
     ResizeObserver, ResizeObserverBoxOptions, ResizeObserverEntry, ResizeObserverOptions,
@@ -14,7 +17,7 @@ pub struct Size {
 }
 
 pub fn use_size(element_ref: NodeRef<AnyElement>) -> ReadSignal<Option<Size>> {
-    let (size, set_size) = create_signal::<Option<Size>>(None);
+    let (size, set_size) = signal::<Option<Size>>(None);
 
     let resize_observer: Rc<RefCell<Option<ResizeObserver>>> = Rc::new(RefCell::new(None));
     let cleanup_resize_observer = resize_observer.clone();

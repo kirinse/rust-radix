@@ -43,7 +43,7 @@ Import the component.
 {{#tab name="Leptos" }}
 
 ```rust,ignore
-use leptos::*;
+use leptos::prelude::*;
 use radix_leptos_aspect_ratio::*;
 
 #[component]

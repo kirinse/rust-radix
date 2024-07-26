@@ -32,7 +32,7 @@ Import the component.
 {{#tab name="Leptos" }}
 
 ```rust,ignore
-use leptos::*;
+use leptos::prelude::*;
 use radix_leptos_direction_provider::*;
 
 #[component]
@@ -70,7 +70,7 @@ Use the direction provider.
 {{#tab name="Leptos" }}
 
 ```rust,ignore
-use leptos::*;
+use leptos::prelude::*;
 use radix_leptos_direction_provider::*;
 
 #[component]

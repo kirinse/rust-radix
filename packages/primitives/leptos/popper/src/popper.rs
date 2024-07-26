@@ -8,7 +8,7 @@ use floating_ui_leptos::{
 };
 use leptos::{
     html::{AnyElement, Div},
-    *,
+    prelude::*,
 };
 use radix_leptos_arrow::Arrow as ArrowPrimitive;
 use radix_leptos_compose_refs::use_composed_refs;

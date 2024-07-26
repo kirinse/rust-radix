@@ -43,7 +43,7 @@ Import all parts and piece them together.
 {{#tab name="Leptos" }}
 
 ```rust,ignore
-use leptos::*;
+use leptos::prelude::*;
 use radix_leptos_separator::*;
 
 #[component]

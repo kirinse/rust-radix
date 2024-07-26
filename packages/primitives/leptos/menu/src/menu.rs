@@ -8,7 +8,7 @@ use ev::CustomEvent;
 use leptos::{
     ev::{Event, FocusEvent, KeyboardEvent, MouseEvent, PointerEvent},
     html::AnyElement,
-    *,
+    prelude::*,
 };
 use radix_leptos_collection::{
     use_collection, CollectionItemSlot, CollectionProvider, CollectionSlot,

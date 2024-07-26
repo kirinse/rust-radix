@@ -1,7 +1,7 @@
 use std::ops::Deref;
 
 use html::AnyElement;
-use leptos::*;
+use leptos::prelude::*;
 use radix_leptos_presence::*;
 use tailwind_fuse::*;
 use web_sys::wasm_bindgen::{closure::Closure, JsCast};
@@ -111,7 +111,7 @@ pub fn WithDeferredMountAnimation() -> impl IntoView {
             node_ref=node_ref
         />
         <Presence present=open node_ref=node_ref>
-            <div attr:class=move || animate.get().then_some(mount_animation_class.get())>
+            <div class=move || animate.get().then_some(mount_animation_class.get())>
                 Content
             </div>
         </Presence>

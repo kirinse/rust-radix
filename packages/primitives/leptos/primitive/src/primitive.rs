@@ -1,7 +1,7 @@
 use leptos::{
     ev::Event,
     html::{AnyElement, ElementDescriptor},
-    *,
+    prelude::*,
 };
 
 #[component]

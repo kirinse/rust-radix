@@ -1,6 +1,9 @@
 use std::rc::Rc;
 
-use leptos::{document, ev::KeyboardEvent, on_cleanup, Callable, Callback, Effect, StoredValue};
+use leptos::{
+    ev::KeyboardEvent,
+    prelude::{document, on_cleanup, Callable, Callback, Effect, StoredValue},
+};
 use web_sys::{
     wasm_bindgen::{closure::Closure, JsCast},
     AddEventListenerOptions, Document, EventListenerOptions,

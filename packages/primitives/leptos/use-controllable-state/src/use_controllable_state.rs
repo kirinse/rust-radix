@@ -1,6 +1,6 @@
-use leptos::{
-    create_signal, Callable, Callback, Effect, MaybeProp, ReadSignal, RwSignal, Signal, SignalGet,
-    SignalGetUntracked, SignalSet, WriteSignal,
+use leptos::prelude::{
+    signal, Callable, Callback, Effect, Get, GetUntracked, MaybeProp, ReadSignal, RwSignal, Set,
+    Signal, WriteSignal,
 };
 
 pub struct UseControllableStateParams<T: 'static> {
@@ -9,7 +9,7 @@ pub struct UseControllableStateParams<T: 'static> {
     pub on_change: Option<Callback<Option<T>>>,
 }
 
-pub fn use_controllable_state<T: Clone + PartialEq>(
+pub fn use_controllable_state<T: Clone + PartialEq + Send + Sync>(
     UseControllableStateParams {
         prop,
         default_prop,
@@ -48,13 +48,13 @@ pub struct UseUncontrollableStateParams<T: 'static> {
     pub on_change: Option<Callback<Option<T>>>,
 }
 
-fn use_uncontrolled_state<T: Clone + PartialEq>(
+fn use_uncontrolled_state<T: Clone + PartialEq + Send + Sync>(
     UseUncontrollableStateParams {
         default_prop,
         on_change,
     }: UseUncontrollableStateParams<T>,
 ) -> (ReadSignal<Option<T>>, WriteSignal<Option<T>>) {
-    let uncontrolled_state = create_signal::<Option<T>>(default_prop.get());
+    let uncontrolled_state = signal::<Option<T>>(default_prop.get());
     let (value, _) = uncontrolled_state;
     let prev_value = RwSignal::new(value.get_untracked());
 

@@ -4,7 +4,7 @@ use std::rc::Rc;
 use leptos::{
     ev::{Event, FocusEvent, KeyboardEvent, MouseEvent},
     html::AnyElement,
-    *,
+    prelude::*,
 };
 use radix_leptos_collection::{
     use_collection, CollectionItemSlot, CollectionProvider, CollectionSlot,

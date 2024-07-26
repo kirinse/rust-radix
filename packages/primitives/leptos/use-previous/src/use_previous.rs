@@ -1,6 +1,6 @@
-use leptos::{Memo, RwSignal, Signal, SignalGet, SignalSet};
+use leptos::prelude::{Get, Memo, RwSignal, Set, Signal};
 
-pub fn use_previous<T: Clone + PartialEq>(value: Signal<T>) -> Memo<T> {
+pub fn use_previous<T: Clone + PartialEq + Send + Sync + 'static>(value: Signal<T>) -> Memo<T> {
     let current = RwSignal::new(value.get());
     let previous = RwSignal::new(value.get());
 
