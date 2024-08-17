@@ -19,3 +19,6 @@ radix-leptos-use-controllable-state = { path = "../use-controllable-state", vers
 radix-leptos-use-previous = { path = "../use-previous", version = "0.0.2" }
 radix-leptos-use-size = { path = "../use-size", version = "0.0.2" }
 web-sys = { workspace = true, features = ["Event", "EventInit"] }
+
+[dev-dependencies]
+wasm-bindgen-test.workspace = true
