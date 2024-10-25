@@ -133,6 +133,13 @@ pub fn App() -> Html {
             <SwitchExample />
         });
     }
+    #[cfg(feature = "switch-color")]
+    {
+        use crate::switch::switch_color::SwitchColorExample;
+        children.push(html! {
+            <SwitchColorExample />
+        });
+    }
     #[cfg(feature = "switch-size")]
     {
         use crate::switch::switch_size::SwitchSizeExample;

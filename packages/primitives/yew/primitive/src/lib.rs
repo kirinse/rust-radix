@@ -6,4 +6,6 @@
 
 mod primitive;
 
+pub use radix_yew_primitive_derive::*;
+
 pub use primitive::*;

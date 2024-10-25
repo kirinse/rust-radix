@@ -9,4 +9,5 @@ repository.workspace = true
 version.workspace = true
 
 [dependencies]
+radix-yew-primitive-derive = { path = "../primitive-derive", version = "0.0.2" }
 yew.workspace = true

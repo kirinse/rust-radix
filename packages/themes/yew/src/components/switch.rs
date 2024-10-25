@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use radix_yew_switch::{Switch as SwitchPrimitive, SwitchThumb as SwitchThumbPrimitive};
 use yew::prelude::*;
 
@@ -90,9 +92,13 @@ pub fn Switch(props: &SwitchProps) -> Html {
     );
 
     html! {
-        // TODO: data-accent-color, data-radius
         <SwitchPrimitive
             node_ref={props.node_ref.clone()}
+            attributes={HashMap::from([
+                ("data-accent-color".to_string(), props.color.0.map(|color| color.to_string())),
+                ("data-radius".to_string(), props.radius.0.map(|radius| radius.to_string()))
+            ])}
+            id={props.id.clone()}
             class={merge_classes(&[&"rt-reset", &"rt-SwitchRoot", &class])}
             style={style.to_string()}
             name={props.name.clone()}
@@ -106,14 +112,5 @@ pub fn Switch(props: &SwitchProps) -> Html {
         >
             <SwitchThumbPrimitive class={merge_classes(&[&"rt-SwitchThumb", &("rt-high-contrast", &props.high_contrast)])} />
         </SwitchPrimitive>
-    }
-}
-
-#[function_component]
-fn Test() -> Html {
-    use crate::props::{color_prop::AccentColor, radius_prop::Radius};
-
-    html! {
-        <Switch high_contrast=true color={AccentColor::Pink} radius={Radius::Small} m="10px" />
     }
 }

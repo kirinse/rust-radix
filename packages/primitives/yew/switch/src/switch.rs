@@ -1,4 +1,6 @@
-use radix_yew_primitive::compose_callbacks;
+use std::collections::HashMap;
+
+use radix_yew_primitive::{compose_callbacks, primitive, Primitive};
 use radix_yew_use_controllable_state::{use_controllable_state, UseControllableStateParams};
 use radix_yew_use_previous::use_previous;
 use radix_yew_use_size::use_size;
@@ -31,6 +33,8 @@ pub struct SwitchProps {
     #[prop_or_default]
     pub node_ref: NodeRef,
     #[prop_or_default]
+    pub attributes: Option<HashMap<String, Option<String>>>,
+    #[prop_or_default]
     pub id: Option<String>,
     #[prop_or_default]
     pub class: Option<String>,
@@ -42,9 +46,11 @@ pub struct SwitchProps {
     pub children: Html,
 }
 
-#[derive(Clone, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq, Primitive)]
+#[primitive(tag = "button")]
 pub struct SwitchChildProps {
     pub node_ref: NodeRef,
+    pub attributes: Option<HashMap<String, Option<String>>>,
     pub id: Option<String>,
     pub class: Option<String>,
     pub style: Option<String>,
@@ -59,29 +65,29 @@ pub struct SwitchChildProps {
     pub onclick: Callback<MouseEvent>,
 }
 
-impl SwitchChildProps {
-    pub fn render(self, children: Html) -> Html {
-        html! {
-            <button
-                ref={self.node_ref}
-                id={self.id}
-                class={self.class}
-                style={self.style}
-                type={self.r#type}
-                role={self.role}
-                aria-checked={self.aria_checked}
-                aria-required={self.aria_required}
-                data-state={self.data_state}
-                data-disabled={self.data_disabled}
-                disabled={self.disabled}
-                value={self.value}
-                onclick={self.onclick}
-            >
-                {children}
-            </button>
-        }
-    }
-}
+// impl SwitchChildProps {
+//     pub fn render(self, children: Html) -> Html {
+//         html! {
+//             <button
+//                 ref={self.node_ref}
+//                 id={self.id}
+//                 class={self.class}
+//                 style={self.style}
+//                 type={self.r#type}
+//                 role={self.role}
+//                 aria-checked={self.aria_checked}
+//                 aria-required={self.aria_required}
+//                 data-state={self.data_state}
+//                 data-disabled={self.data_disabled}
+//                 disabled={self.disabled}
+//                 value={self.value}
+//                 onclick={self.onclick}
+//             >
+//                 {children}
+//             </button>
+//         }
+//     }
+// }
 
 #[function_component]
 pub fn Switch(props: &SwitchProps) -> Html {
@@ -146,6 +152,7 @@ pub fn Switch(props: &SwitchProps) -> Html {
 
     let child_props = SwitchChildProps {
         node_ref: composed_refs,
+        attributes: props.attributes.clone(),
         id: props.id.clone(),
         class: props.class.clone(),
         style: props.style.clone(),

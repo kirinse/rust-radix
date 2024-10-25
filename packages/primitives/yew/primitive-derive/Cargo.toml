@@ -1,0 +1,17 @@
+[package]
+name = "radix-yew-primitive-derive"
+description = "Derive macro for Radix Yew Primitive."
+
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0.89"
+quote = "1.0.37"
+syn = "2.0.85"

@@ -44,7 +44,20 @@ TODO
 
 ### Color
 
-TODO
+Use the `color` prop to assign a specific [color](../theme/color.md).
+
+{{#tabs global="framework" }}
+{{#tab name="Yew" }}
+
+```toml,trunk
+package = "radix-yew-book-themes"
+features = ["switch-color"]
+files = ["src/switch/switch_color.rs"]
+show_files = true
+```
+
+{{#endtab }}
+{{#endtabs }}
 
 ### High-contrast
 
