@@ -3024,6 +3024,7 @@ name = "radix-leptos-themes"
 version = "0.0.2"
 dependencies = [
  "leptos",
+ "radix-leptos-direction",
 ]
 
 [[package]]

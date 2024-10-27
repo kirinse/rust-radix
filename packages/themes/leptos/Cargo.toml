@@ -10,4 +10,5 @@ repository.workspace = true
 version.workspace = true
 
 [dependencies]
+radix-leptos-direction = { path = "../../primitives/leptos/direction", version = "0.0.2" }
 leptos.workspace = true
