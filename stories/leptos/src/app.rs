@@ -4,7 +4,9 @@ use leptos_router::{
     path,
 };
 
-use crate::primitives::{accessible_icon, arrow, aspect_ratio, avatar, label, progress, separator, visually_hidden};
+use crate::primitives::{
+    accessible_icon, arrow, aspect_ratio, avatar, label, progress, separator, visually_hidden,
+};
 
 #[component]
 fn NavLink<H>(href: H, children: Children) -> impl IntoView

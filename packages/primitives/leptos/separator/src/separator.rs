@@ -45,7 +45,7 @@ pub fn Separator(
     #[prop(into, optional)] decorative: MaybeProp<bool>,
     #[prop(into, optional)] as_child: MaybeProp<bool>,
     #[prop(into, optional)] node_ref: AnyNodeRef,
-    #[prop(into, optional)] class: MaybeProp<String>,
+    #[prop(into, optional)] _class: MaybeProp<String>,
     // if as_child=true, there will be no attribute passthrough to the children,
     // but we opt for this design so we can allow children to be optional.
     #[prop(optional)] children: Option<ChildrenFn>,

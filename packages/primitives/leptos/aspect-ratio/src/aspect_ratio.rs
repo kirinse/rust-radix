@@ -8,7 +8,7 @@ const DEFAULT_RATIO: f64 = 1.0;
  * AspectRatio
  * -----------------------------------------------------------------------------------------------*/
 
-const NAME: &'static str = "AspectRatio";
+const NAME: &str = "AspectRatio";
 
 #[component]
 #[allow(non_snake_case)]

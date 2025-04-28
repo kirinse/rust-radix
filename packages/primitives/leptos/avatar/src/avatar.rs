@@ -1,11 +1,11 @@
-use leptos::prelude::*;
 use leptos::context::Provider;
 use leptos::html;
-use leptos::wasm_bindgen::closure::Closure;
+use leptos::prelude::*;
 use leptos::wasm_bindgen::JsCast;
-use leptos_node_ref::prelude::*;
-use leptos_use::{use_timeout_fn, UseTimeoutFnReturn};
+use leptos::wasm_bindgen::closure::Closure;
 use leptos_maybe_callback::MaybeCallback;
+use leptos_node_ref::prelude::*;
+use leptos_use::{UseTimeoutFnReturn, use_timeout_fn};
 use radix_leptos_context::create_context;
 use radix_leptos_primitive::{Primitive, VoidPrimitive};
 
@@ -31,7 +31,7 @@ struct AvatarContextValue {
  * Avatar (Root)
  * -----------------------------------------------------------------------------------------------*/
 
-const AVATAR_NAME: &'static str = "Avatar";
+const AVATAR_NAME: &str = "Avatar";
 
 create_context!(
     context_type: AvatarContextValue,
@@ -44,9 +44,11 @@ create_context!(
 #[allow(non_snake_case)]
 pub fn Avatar(
     /// If `true`, renders only its children without a `<span>` wrapper.
-    #[prop(into, optional)] as_child: MaybeProp<bool>,
+    #[prop(into, optional)]
+    as_child: MaybeProp<bool>,
     /// A reference to the underlying `<span>` element, if needed.
-    #[prop(into, optional)] node_ref: AnyNodeRef,
+    #[prop(into, optional)]
+    node_ref: AnyNodeRef,
     /// The children of the Avatar component.
     children: TypedChildrenFn<impl IntoView + 'static>,
 ) -> impl IntoView {
@@ -76,7 +78,7 @@ pub fn Avatar(
  * AvatarImage
  * -----------------------------------------------------------------------------------------------*/
 
-const IMAGE_NAME: &'static str = "AvatarImage";
+const IMAGE_NAME: &str = "AvatarImage";
 
 #[component]
 #[allow(non_snake_case)]
@@ -90,7 +92,7 @@ pub fn AvatarImage(
 ) -> impl IntoView {
     let context = use_avatar_context(IMAGE_NAME);
     let children = StoredValue::new(children);
-    let loading_status = use_image_loading_status(src.clone(), referrer_policy.clone());
+    let loading_status = use_image_loading_status(src, referrer_policy);
 
     // Update context and callback when loading status changes
     Effect::new(move |_| {
@@ -121,27 +123,32 @@ pub fn AvatarImage(
  * AvatarFallback
  * -----------------------------------------------------------------------------------------------*/
 
-const FALLBACK_NAME: &'static str = "AvatarFallback";
+const FALLBACK_NAME: &str = "AvatarFallback";
 
 #[component]
 pub fn AvatarFallback(
     /// Children (for example, initials or an icon).
     children: TypedChildrenFn<impl IntoView + 'static>,
     /// Delay (in ms) before showing the fallback `<span>`. If no delay, fallback appears immediately.
-    #[prop(into, optional)] delay_ms: MaybeProp<i32>,
+    #[prop(into, optional)]
+    delay_ms: MaybeProp<i32>,
     /// If `true`, renders only its children without a `<span>` wrapper.
-    #[prop(into, optional)] as_child: MaybeProp<bool>,
+    #[prop(into, optional)]
+    as_child: MaybeProp<bool>,
     /// A reference to the `<span>` element for the fallback.
-    #[prop(into, optional)] node_ref: AnyNodeRef,
+    #[prop(into, optional)]
+    node_ref: AnyNodeRef,
 ) -> impl IntoView {
     let children = StoredValue::new(children.into_inner());
     let context = use_avatar_context(FALLBACK_NAME);
 
     // use_timeout_fn from leptos_use to handle the delay before showing fallback
-    let UseTimeoutFnReturn { start, stop, is_pending, .. } = use_timeout_fn(
-        move |_| {},
-        delay_ms.get().unwrap_or_default() as f64,
-    );
+    let UseTimeoutFnReturn {
+        start,
+        stop,
+        is_pending,
+        ..
+    } = use_timeout_fn(move |_| {}, delay_ms.get().unwrap_or_default() as f64);
 
     // If no delay is set, fallback can render immediately
     let can_render = RwSignal::new(delay_ms.get().is_none());
@@ -152,15 +159,12 @@ pub fn AvatarFallback(
         can_render.set(delay_ms.get().is_none());
 
         #[cfg(debug_assertions)]
-        leptos::logging::log!(
-            "[{FALLBACK_NAME}] delay_ms changed: {:?}",
-            delay_ms.get()
-        );
+        leptos::logging::log!("[{FALLBACK_NAME}] delay_ms changed: {:?}", delay_ms.get());
 
         if let Some(ms) = delay_ms.get() {
             #[cfg(debug_assertions)]
             leptos::logging::log!("[{FALLBACK_NAME}] Starting timeout for {} ms", ms);
-            start(ms as i32);
+            start(ms);
         }
     });
 
@@ -254,6 +258,6 @@ pub mod primitive {
     // Re-export core items so consumers can use avatar::primitive::* as AvatarPrimitive
     pub use super::*;
     pub use Avatar as Root;
-    pub use AvatarImage as Image;
     pub use AvatarFallback as Fallback;
+    pub use AvatarImage as Image;
 }

@@ -36,7 +36,7 @@ impl std::fmt::Display for ProgressState {
  * Progress Context
  * -----------------------------------------------------------------------------------------------*/
 
-const PROGRESS_NAME: &'static str = "Progress";
+const PROGRESS_NAME: &str = "Progress";
 
 #[derive(Clone, Debug)]
 pub struct ProgressContextValue {
@@ -81,32 +81,26 @@ pub fn Progress(
     // Provide a default callback if none is given.
     let get_value_label = get_value_label.unwrap_or_else(|| {
         Callback::new(|(value, max): (f64, f64)| {
-            let pct = ((value / max) * f64::from(100.0)).round();
+            let pct = ((value / max) * 100.0).round();
             format!("{}%", pct)
         })
     });
 
     // Derive signals for max and clamped value.
-    let max_signal = Signal::derive({
-        let max = max.clone();
-        move || max.get().filter(|m| *m > 0.0).unwrap_or(DEFAULT_MAX)
-    });
+    let max_signal = Signal::derive(move || max.get().filter(|m| *m > 0.0).unwrap_or(DEFAULT_MAX));
 
-    let value_signal = Signal::derive({
-        let value = value.clone();
-        move || value.get().map(|v| v.clamp(0.0, max_signal.get()))
-    });
+    let value_signal = Signal::derive(move || value.get().map(|v| v.clamp(0.0, max_signal.get())));
 
     // Derive signals for data/aria attributes.
     let progress_state = Signal::derive({
-        let val = value_signal.clone();
-        let mx = max_signal.clone();
+        let val = value_signal;
+        let mx = max_signal;
         move || get_progress_state(val.get(), mx.get())
     });
 
     let value_label = Signal::derive({
-        let val = value_signal.clone();
-        let mx = max_signal.clone();
+        let val = value_signal;
+        let mx = max_signal;
         let label_cb = get_value_label; // Callback is Copy
         move || val.get().map(|v| label_cb.run((v, mx.get())))
     });
@@ -169,7 +163,7 @@ pub fn Progress(
  * ProgressIndicator
  * -----------------------------------------------------------------------------------------------*/
 
-const INDICATOR_NAME: &'static str = "ProgressIndicator";
+const INDICATOR_NAME: &str = "ProgressIndicator";
 
 #[component]
 #[allow(non_snake_case)]

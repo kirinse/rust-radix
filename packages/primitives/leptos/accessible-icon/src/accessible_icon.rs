@@ -1,4 +1,3 @@
-
 use leptos::attr::{aria_hidden, custom::custom_attribute};
 use leptos::prelude::*;
 use radix_leptos_visually_hidden::primitive as VisuallyHidden;
@@ -21,7 +20,8 @@ const NAME: &str = "AccessibleIcon";
 pub fn AccessibleIcon(
     children: TypedChildren<impl IntoView + 'static>,
     /// A label announced by screen readers, hidden visually.
-    #[prop(into, optional)] label: MaybeProp<String>,
+    #[prop(into, optional)]
+    label: MaybeProp<String>,
 ) -> impl IntoView {
     let label = Signal::derive(move || label.get());
     view! {
@@ -36,7 +36,6 @@ pub fn AccessibleIcon(
         </>
     }
 }
-
 
 /* -----------------------------------------------------------------------------------------------*/
 

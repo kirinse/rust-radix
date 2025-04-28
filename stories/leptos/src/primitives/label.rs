@@ -56,7 +56,7 @@ pub fn WithEvents() -> impl IntoView {
         <div class="space-y-4">
             <Label
                 attr:class="inline-block p-2 border"
-                on_mouse_down=move |_: ev::MouseEvent| set_count.update(|mut c| *c = *c + 1)
+                on_mouse_down=move |_: ev::MouseEvent| set_count.update(|mut c| *c += 1)
             >
                 <span>"Click counter: "</span>
                 <span>{count}</span>
