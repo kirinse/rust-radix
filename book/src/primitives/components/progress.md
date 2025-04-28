@@ -16,7 +16,7 @@ files = ["src/progress.rs"]
 
 ## Features
 
--   Provides context for assistive technology to read the progress of a task.
+- Provides context for assistive technology to read the progress of a task.
 
 ## Installation
 
@@ -29,9 +29,9 @@ Install the component from your command line.
 cargo add radix-leptos-progress
 ```
 
--   [View on crates.io](https://crates.io/crates/radix-leptos-progress)
--   [View on docs.rs](https://docs.rs/radix-leptos-progress/latest/radix_leptos_progress/)
--   [View source](https://github.com/RustForWeb/radix/tree/main/packages/primitives/leptos/progress)
+- [View on crates.io](https://crates.io/crates/radix-leptos-progress)
+- [View on docs.rs](https://docs.rs/radix-leptos-progress/latest/radix_leptos_progress/)
+- [View source](https://github.com/RustForWeb/radix/tree/main/packages/primitives/leptos/progress)
 
 {{#endtab }}
 {{#endtabs }}
@@ -115,4 +115,4 @@ Adheres to the [`progressbar` role requirements](https://www.w3.org/WAI/ARIA/apg
 
 ## See Also
 
--   [Radix documentation](https://www.radix-ui.com/primitives/docs/components/progress)
+- [Radix documentation](https://www.radix-ui.com/primitives/docs/components/progress)

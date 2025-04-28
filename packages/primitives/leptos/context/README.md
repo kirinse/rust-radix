@@ -4,9 +4,9 @@
     </a>
 </p>
 
-<h1 align="center">radix-leptos-visually-hidden</h1>
+<h1 align="center">radix-leptos-context</h1>
 
-Hides content from the screen in an accessible way.
+This is an internal utility, not intended for public usage.
 
 [Rust Radix](https://github.com/RustForWeb/radix) is a Rust port of [Radix](https://www.radix-ui.com/primitives).
 

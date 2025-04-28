@@ -13,21 +13,30 @@ members = [
     "book-examples/*/*",
     "packages/colors",
     "packages/icons/*",
+    # -- Leptos Primitives (commented until they're upgraded) --
     "packages/primitives/leptos/accessible-icon",
     "packages/primitives/leptos/arrow",
+    "packages/primitives/leptos/avatar",
     "packages/primitives/leptos/aspect-ratio",
+    "packages/primitives/leptos/context",
     "packages/primitives/leptos/compose-refs",
     "packages/primitives/leptos/direction",
     "packages/primitives/leptos/focus-guards",
     "packages/primitives/leptos/id",
     "packages/primitives/leptos/label",
     "packages/primitives/leptos/primitive",
+    "packages/primitives/leptos/progress",
+    "packages/primitives/leptos/separator",
     "packages/primitives/leptos/use-controllable-state",
     "packages/primitives/leptos/use-escape-keydown",
     "packages/primitives/leptos/use-previous",
     "packages/primitives/leptos/use-size",
     "packages/primitives/leptos/visually-hidden",
+
+    # -- Yew Primitives --
     "packages/primitives/yew/*",
+
+    # -- Themes, Scripts, and Stories --
     "packages/themes/yew",
     "scripts",
     "stories/*",
@@ -52,6 +61,7 @@ leptos-maybe-callback = "0.1.0"
 leptos-node-ref = "0.1.0"
 leptos-style = "0.1.0"
 leptos-typed-fallback-show = "0.1.0"
+leptos-use = "0.15.2"
 log = "0.4.22"
 send_wrapper = "0.6.0"
 serde = "1.0.198"
@@ -62,6 +72,43 @@ yew = "0.21.0"
 yew-router = "0.18.0"
 yew-struct-component = "0.1.4"
 yew-style = "0.1.4"
+
+# Subcrate packages (paths remain the same; you can comment out any subcrate not yet upgraded).
+# We centralize shared dependencies in [workspace.dependencies] for a single source of truth,
+# reducing duplication, preventing version drift, and keeping the Cargo.lock consistent.
+radix-leptos-arrow.path = "./packages/primitives/leptos/arrow"
+radix-leptos-aspect-ratio.path = "./packages/primitives/leptos/aspect-ratio"
+radix-leptos-accessible-icon.path = "./packages/primitives/leptos/accessible-icon"
+radix-leptos-avatar.path = "./packages/primitives/leptos/avatar"
+#radix-leptos-checkbox.path = "./packages/primitives/leptos/checkbox"
+radix-leptos-context.path = "./packages/primitives/leptos/context"
+#radix-leptos-collection.path = "./packages/primitives/leptos/collection"
+radix-leptos-compose-refs.path = "./packages/primitives/leptos/compose-refs"
+radix-leptos-direction.path = "./packages/primitives/leptos/direction"
+radix-leptos-dismissable-layer.path = "./packages/primitives/leptos/dismissable-layer"
+#radix-leptos-dropdown-menu.path = "./packages/primitives/leptos/dropdown-menu"
+#radix-leptos-focus-guards.path = "./packages/primitives/leptos/focus-guards"
+#radix-leptos-focus-scope.path = "./packages/primitives/leptos/focus-scope"
+radix-leptos-id.path = "./packages/primitives/leptos/id"
+radix-leptos-label.path = "./packages/primitives/leptos/label"
+#radix-leptos-menu.path = "./packages/primitives/leptos/menu"
+#radix-leptos-popper.path = "./packages/primitives/leptos/popper"
+#radix-leptos-portal.path = "./packages/primitives/leptos/portal"
+#radix-leptos-presence.path = "./packages/primitives/leptos/presence"
+radix-leptos-primitive.path = "./packages/primitives/leptos/primitive"
+radix-leptos-progress.path = "./packages/primitives/leptos/progress"
+#radix-leptos-roving-focus.path = "./packages/primitives/leptos/roving-focus"
+#radix-leptos-select.path = "./packages/primitives/leptos/select"
+radix-leptos-separator.path = "./packages/primitives/leptos/separator"
+#radix-leptos-slot.path = "./packages/primitives/leptos/slot"
+#radix-leptos-switch.path = "./packages/primitives/leptos/switch"
+#radix-leptos-tabs.path = "./packages/primitives/leptos/tabs"
+#radix-leptos-toggle.path = "./packages/primitives/leptos/toggle"
+radix-leptos-use-controllable-state.path = "./packages/primitives/leptos/use-controllable-state"
+radix-leptos-use-escape-keydown.path = "./packages/primitives/leptos/use-escape-keydown"
+radix-leptos-use-previous.path = "./packages/primitives/leptos/use-previous"
+radix-leptos-use-size.path = "./packages/primitives/leptos/use-size"
+radix-leptos-visually-hidden.path = "./packages/primitives/leptos/visually-hidden"
 
 [patch.crates-io]
 yew = { git = "https://github.com/RustForWeb/yew.git", branch = "feature/use-composed-ref" }

@@ -4,7 +4,7 @@ use leptos_router::{
     path,
 };
 
-use crate::primitives::{accessible_icon, arrow, aspect_ratio, label, visually_hidden};
+use crate::primitives::{accessible_icon, arrow, aspect_ratio, avatar, label, progress, separator, visually_hidden};
 
 #[component]
 fn NavLink<H>(href: H, children: Children) -> impl IntoView
@@ -61,14 +61,14 @@ pub fn App() -> impl IntoView {
                             <li><NavLink href="/aspect-ratio/chromatic">Chromatic</NavLink></li>
                         </ul>
                     </li>
-                    // <li>
-                    //     Avatar
+                    <li>
+                        Avatar
 
-                    //     <ul class="list-none m-0 ms-4 p-0">
-                    //         <li><NavLink href="/avatar/styled">Styled</NavLink></li>
-                    //         <li><NavLink href="/avatar/chromatic">Chromatic</NavLink></li>
-                    //     </ul>
-                    // </li>
+                        <ul class="list-none m-0 ms-4 p-0">
+                            <li><NavLink href="/avatar/styled">Styled</NavLink></li>
+                            <li><NavLink href="/avatar/chromatic">Chromatic</NavLink></li>
+                        </ul>
+                    </li>
                     // <li>
                     //     Checkbox
 
@@ -106,9 +106,10 @@ pub fn App() -> impl IntoView {
                         Label
 
                         <ul class="list-none m-0 ms-4 p-0">
-                            <li><NavLink href="/label/styled">Styled</NavLink></li>
+                            <li><NavLink href="/label/basic">Basic</NavLink></li>
                             <li><NavLink href="/label/with-control">With Control</NavLink></li>
-                            <li><NavLink href="/label/with-input-number">With Input Number</NavLink></li>
+                            <li><NavLink href="/label/with-inputs">With Inputs</NavLink></li>
+                            <li><NavLink href="/label/with-events">With Events</NavLink></li>
                         </ul>
                     </li>
                     // <li>
@@ -152,21 +153,21 @@ pub fn App() -> impl IntoView {
                     //         <li><NavLink href="/presence/with-deferred-mount-animation">With Deferred Mount Animation</NavLink></li>
                     //     </ul>
                     // </li>
-                    // <li>
-                    //     Progress
+                    <li>
+                        Progress
 
-                    //     <ul class="list-none m-0 ms-4 p-0">
-                    //         <li><NavLink href="/progress/styled">Styled</NavLink></li>
-                    //         <li><NavLink href="/progress/chromatic">Chromatic</NavLink></li>
-                    //     </ul>
-                    // </li>
-                    // <li>
-                    //     Separator
+                        <ul class="list-none m-0 ms-4 p-0">
+                            <li><NavLink href="/progress/styled">Styled</NavLink></li>
+                            <li><NavLink href="/progress/chromatic">Chromatic</NavLink></li>
+                        </ul>
+                    </li>
+                    <li>
+                        Separator
 
-                    //     <ul class="list-none m-0 ms-4 p-0">
-                    //         <li><NavLink href="/separator/styled">Styled</NavLink></li>
-                    //     </ul>
-                    // </li>
+                        <ul class="list-none m-0 ms-4 p-0">
+                            <li><NavLink href="/separator/styled">Styled</NavLink></li>
+                        </ul>
+                    </li>
                     // <li>
                     //     Slot
 
@@ -218,8 +219,8 @@ pub fn App() -> impl IntoView {
                     <Route path=path!("/aspect-ratio/custom-ratios") view=aspect_ratio::CustomRatios />
                     <Route path=path!("/aspect-ratio/chromatic") view=aspect_ratio::Chromatic />
 
-                    // <Route path="/avatar/styled" view=avatar::Styled />
-                    // <Route path="/avatar/chromatic" view=avatar::Chromatic />
+                    <Route path=path!("/avatar/styled") view=avatar::Styled />
+                    <Route path=path!("/avatar/chromatic") view=avatar::Chromatic />
 
                     // <Route path="/checkbox/styled" view=checkbox::Styled />
                     // <Route path="/checkbox/controlled" view=checkbox::Controlled />
@@ -239,9 +240,10 @@ pub fn App() -> impl IntoView {
                     // <Route path="/focus-scope/basic" view=focus_scope::Basic />
                     // <Route path="/focus-scope/multiple" view=focus_scope::Multiple />
 
-                    <Route path=path!("/label/styled") view=label::Styled />
+                    <Route path=path!("/label/basic") view=label::Basic />
                     <Route path=path!("/label/with-control") view=label::WithControl />
-                    <Route path=path!("/label/with-input-number") view=label::WithInputNumber />
+                    <Route path=path!("/label/with-inputs") view=label::WithInputs />
+                    <Route path=path!("/label/with-events") view=label::WithEvents />
 
                     // <Route path="/menu/styled" view=menu::Styled />
 
@@ -264,10 +266,10 @@ pub fn App() -> impl IntoView {
                     // <Route path="/presence/with-multiple-open-and-close-animations" view=presence::WithMultipleOpenAndCloseAnimations />
                     // <Route path="/presence/with-deferred-mount-animation" view=presence::WithDeferredMountAnimation />
 
-                    // <Route path="/progress/styled" view=progress::Styled />
-                    // <Route path="/progress/chromatic" view=progress::Chromatic />
+                    <Route path=path!("/progress/styled") view=progress::Styled />
+                    <Route path=path!("/progress/chromatic") view=progress::Chromatic />
 
-                    // <Route path="/separator/styled" view=separator::Styled />
+                    <Route path=path!("/separator/styled") view=separator::Styled />
 
                     // <Route path="/slot/without-slottable" view=slot::WithoutSlottable />
                     // <Route path="/slot/with-slottable" view=slot::WithSlottable />

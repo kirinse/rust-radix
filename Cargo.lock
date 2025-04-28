@@ -446,6 +446,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "cookie"
+version = "0.18.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4ddef33a339a91ea89fb53151bd0a4689cfce27055c291dfa69945475d22c747"
+dependencies = [
+ "percent-encoding",
+ "time",
+ "version_check",
+]
+
+[[package]]
 name = "core-foundation"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -559,6 +570,18 @@ name = "data-encoding"
 version = "2.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "575f75dfd25738df5b91b8e43e14d44bda14637a58fae779fd2b064f8bf3e010"
+
+[[package]]
+name = "default-struct-builder"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e0df63c21a4383f94bd5388564829423f35c316aed85dc4f8427aded372c7c0d"
+dependencies = [
+ "darling",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.101",
+]
 
 [[package]]
 name = "deranged"
@@ -2240,6 +2263,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "leptos-maybe-callback"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cf959771ae2df3c9f1dfded8dfbf6bf0f410dbdf8608ac42d5e639ff40e6d243"
+dependencies = [
+ "leptos",
+]
+
+[[package]]
 name = "leptos-node-ref"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2250,22 +2282,37 @@ dependencies = [
 ]
 
 [[package]]
-name = "leptos-style"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a8e30510c7ebb1bf6d28167cd4ac83221f3eaa09077e280c172b56464fd0d38f"
-dependencies = [
- "indexmap",
- "leptos",
-]
-
-[[package]]
 name = "leptos-typed-fallback-show"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "621509b63a15fe1470d65a8b4c326ca470c9d3043fa515d7ab3b3e9b5223a9f7"
 dependencies = [
  "leptos",
+]
+
+[[package]]
+name = "leptos-use"
+version = "0.15.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e612389629007497d1e90deecf5bddd790e59e32358546fa7beaf88a68d2067b"
+dependencies = [
+ "cfg-if",
+ "chrono",
+ "codee",
+ "cookie",
+ "default-struct-builder",
+ "futures-util",
+ "gloo-timers 0.3.0",
+ "js-sys",
+ "lazy_static",
+ "leptos",
+ "paste",
+ "send_wrapper",
+ "thiserror 2.0.12",
+ "unic-langid",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
 ]
 
 [[package]]
@@ -3083,7 +3130,21 @@ name = "radix-leptos-aspect-ratio"
 version = "0.0.2"
 dependencies = [
  "leptos",
- "leptos-style",
+ "leptos-node-ref",
+ "radix-leptos-primitive",
+]
+
+[[package]]
+name = "radix-leptos-avatar"
+version = "0.0.2"
+dependencies = [
+ "leptos",
+ "leptos-maybe-callback",
+ "leptos-node-ref",
+ "leptos-use",
+ "radix-leptos-context",
+ "radix-leptos-primitive",
+ "web-sys",
 ]
 
 [[package]]
@@ -3111,6 +3172,14 @@ dependencies = [
 
 [[package]]
 name = "radix-leptos-compose-refs"
+version = "0.0.2"
+dependencies = [
+ "leptos",
+ "leptos-node-ref",
+]
+
+[[package]]
+name = "radix-leptos-context"
 version = "0.0.2"
 dependencies = [
  "leptos",
@@ -3150,6 +3219,9 @@ name = "radix-leptos-label"
 version = "0.0.2"
 dependencies = [
  "leptos",
+ "leptos-maybe-callback",
+ "leptos-node-ref",
+ "radix-leptos-primitive",
  "web-sys",
 ]
 
@@ -3160,6 +3232,25 @@ dependencies = [
  "leptos",
  "leptos-node-ref",
  "leptos-typed-fallback-show",
+]
+
+[[package]]
+name = "radix-leptos-progress"
+version = "0.0.2"
+dependencies = [
+ "leptos",
+ "leptos-node-ref",
+ "radix-leptos-context",
+ "radix-leptos-primitive",
+]
+
+[[package]]
+name = "radix-leptos-separator"
+version = "0.0.2"
+dependencies = [
+ "leptos",
+ "leptos-node-ref",
+ "radix-leptos-primitive",
 ]
 
 [[package]]
@@ -3174,7 +3265,10 @@ dependencies = [
  "radix-leptos-accessible-icon",
  "radix-leptos-arrow",
  "radix-leptos-aspect-ratio",
+ "radix-leptos-avatar",
  "radix-leptos-label",
+ "radix-leptos-progress",
+ "radix-leptos-separator",
  "radix-leptos-visually-hidden",
  "tailwind_fuse",
  "web-sys",
@@ -3218,7 +3312,8 @@ name = "radix-leptos-visually-hidden"
 version = "0.0.2"
 dependencies = [
  "leptos",
- "leptos-style",
+ "leptos-node-ref",
+ "radix-leptos-primitive",
 ]
 
 [[package]]
@@ -4775,6 +4870,24 @@ name = "typenum"
 version = "1.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1dccffe3ce07af9386bfd29e80c0ab1a8205a2fc34e4bcd40364df902cfa8f3f"
+
+[[package]]
+name = "unic-langid"
+version = "0.9.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "23dd9d1e72a73b25e07123a80776aae3e7b0ec461ef94f9151eed6ec88005a44"
+dependencies = [
+ "unic-langid-impl",
+]
+
+[[package]]
+name = "unic-langid-impl"
+version = "0.9.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0a5422c1f65949306c99240b81de9f3f15929f5a8bfe05bb44b034cc8bf593e5"
+dependencies = [
+ "tinystr",
+]
 
 [[package]]
 name = "unicode-ident"
