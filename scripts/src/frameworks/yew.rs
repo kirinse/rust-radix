@@ -150,7 +150,7 @@ impl Framework for Yew {
             .arg(&package)
             .status()?
             .success();
-            // .exit_ok()?;
+        // .exit_ok()?;
 
         Ok(())
     }

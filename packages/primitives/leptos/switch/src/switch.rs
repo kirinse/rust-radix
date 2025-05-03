@@ -91,7 +91,7 @@ pub fn Switch(
     // 5) Render the “Root” as a <button>
     view! {
         <SwitchProvider value=SwitchContextValue {
-            checked: checked,
+            checked,
             disabled,
         }>
             <Primitive

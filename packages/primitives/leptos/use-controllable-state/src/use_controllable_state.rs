@@ -74,7 +74,7 @@ fn use_uncontrolled_state<T: Clone + Default + PartialEq + Send + Sync>(
                 set_value.set(value.clone());
             }
         }
-        return value;
+        value
     });
 
     (value, set_value)

@@ -70,13 +70,14 @@ struct TabsContextValue {
     selected: RwSignal<Option<String>>,
     on_value_change: MaybeCallback<String>,
     orientation: String,
+    #[allow(dead_code)] // TODO: remove this
     dir: String,
     #[allow(dead_code)] // TODO: remove this
     activation_mode: String,
     base_id: String,
 }
 
-const TABS_NAME: &'static str = "Tabs";
+const TABS_NAME: &str = "Tabs";
 
 create_context!(
     context_type: TabsContextValue,
@@ -109,7 +110,7 @@ pub fn Tabs(
     /// activationMode: "automatic" or "manual"
     #[prop(into, optional)]
     activation_mode: MaybeProp<String>,
-    #[prop(into, optional)] class: MaybeProp<String>,
+    #[prop(into, optional)] _class: MaybeProp<String>,
 
     children: ChildrenFn,
     node_ref: AnyNodeRef,
@@ -125,11 +126,10 @@ pub fn Tabs(
 
     // Local signal that stores the actual “currently selected tab”
     let fallback = default_value.get().unwrap_or_default();
-    let selected = RwSignal::new(value.get().clone().or_else(|| Some(fallback)));
+    let selected = RwSignal::new(value.get().clone().or(Some(fallback)));
 
     // If “value” changes, we update selected
     Effect::new({
-        let selected = selected.clone();
         #[cfg(debug_assertions)]
         leptos::logging::log!("{:?}", value.get());
         move |_| {
@@ -166,18 +166,20 @@ pub fn Tabs(
 // ----------------------------------------
 // List
 // ----------------------------------------
-const TAB_LIST_NAME: &'static str = "TabsList";
+const TAB_LIST_NAME: &str = "TabsList";
 
 #[component]
 pub fn TabsList(
     /// If we replicate roving focus props, we can define them here
     #[prop(optional, default = true)]
-    loop_: bool,
+    _loop: bool,
     children: TypedChildrenFn<impl IntoView + 'static>,
     node_ref: AnyNodeRef,
 ) -> impl IntoView {
     let TabsContextValue {
-        orientation, dir, ..
+        orientation: _,
+        dir: _,
+        ..
     } = use_tabs_context(TAB_LIST_NAME);
     let children = StoredValue::new(children.into_inner());
     view! {
@@ -198,7 +200,7 @@ pub fn TabsList(
 // ----------------------------------------
 // Trigger
 // ----------------------------------------
-const TAB_TRIGGER_NAME: &'static str = "TabsTrigger";
+const TAB_TRIGGER_NAME: &str = "TabsTrigger";
 
 #[component]
 pub fn TabsTrigger(
@@ -279,7 +281,7 @@ pub fn TabsTrigger(
 // ----------------------------------------
 // Content
 // ----------------------------------------
-const TAB_CONTENT_NAME: &'static str = "TabsContent";
+const TAB_CONTENT_NAME: &str = "TabsContent";
 
 #[component]
 pub fn TabsContent(
@@ -302,7 +304,7 @@ pub fn TabsContent(
     let is_selected = Signal::derive(move || {
         selected
             .get()
-            .map_or(false, |s| s == value.with_value(|v| v.clone()))
+            .is_some_and(|s| s == value.with_value(|v| v.clone()))
     });
 
     // Effect to print current

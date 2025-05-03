@@ -149,6 +149,7 @@ fn use_presence(present: Signal<bool>) -> UsePresenceReturn {
     // Triggering an ANIMATION_OUT during an ANIMATION_IN will fire an `animationcancel`
     // event for ANIMATION_IN after we have entered `unmountSuspended` state. So, we
     // make sure we only trigger ANIMATION_END for the currently active animation.
+    #[allow(clippy::type_complexity)]
     let handle_animation_end: Arc<SendWrapper<Closure<dyn Fn(AnimationEvent)>>> = Arc::new(
         SendWrapper::new(Closure::new(move |event: AnimationEvent| {
             let current_animation_name = get_animation_name(styles.get_untracked().as_ref());
@@ -166,6 +167,7 @@ fn use_presence(present: Signal<bool>) -> UsePresenceReturn {
     );
     let cleanup_handle_animation_end = handle_animation_end.clone();
 
+    #[allow(clippy::type_complexity)]
     let handle_animation_start: Arc<SendWrapper<Closure<dyn Fn(AnimationEvent)>>> = Arc::new(
         SendWrapper::new(Closure::new(move |event: AnimationEvent| {
             if event.target().as_ref()

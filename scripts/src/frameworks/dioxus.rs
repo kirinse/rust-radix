@@ -133,7 +133,7 @@ impl Framework for Dioxus {
             .current_dir(path)
             .status()?
             .success();
-            // .exit_ok()?;
+        // .exit_ok()?;
 
         let _ = Command::new("cargo")
             .arg("fmt")
@@ -141,7 +141,7 @@ impl Framework for Dioxus {
             .arg(&package)
             .status()?
             .success();
-            // .exit_ok()?;
+        // .exit_ok()?;
 
         Ok(())
     }
