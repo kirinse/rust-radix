@@ -4,17 +4,16 @@ use std::{
 };
 
 use leptos::{
-    ev::{Event, KeyboardEvent, MouseEvent},
-    html::{AnyElement, Input},
-    *,
+    attr::Attribute, context::Provider, ev::{Event, KeyboardEvent, MouseEvent}, html::{self, Input}, prelude::*
 };
+use leptos_node_ref::AnyNodeRef;
 use radix_leptos_compose_refs::use_composed_refs;
 use radix_leptos_presence::Presence;
-use radix_leptos_primitive::{compose_callbacks, Primitive};
-use radix_leptos_use_controllable_state::{use_controllable_state, UseControllableStateParams};
+use radix_leptos_primitive::{Primitive, compose_callbacks};
+use radix_leptos_use_controllable_state::{UseControllableStateParams, use_controllable_state};
 use radix_leptos_use_previous::use_previous;
 use radix_leptos_use_size::use_size;
-use web_sys::wasm_bindgen::{closure::Closure, JsCast};
+use web_sys::wasm_bindgen::{JsCast, closure::Closure};
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub enum CheckedState {
@@ -37,15 +36,15 @@ impl Display for CheckedState {
     }
 }
 
-impl IntoAttribute for CheckedState {
-    fn into_attribute(self) -> Attribute {
-        Attribute::String(self.to_string().into())
-    }
+// impl IntoAttribute for CheckedState {
+//     fn into_attribute(self) -> Attribute {
+//         Attribute::String(self.to_string().into())
+//     }
 
-    fn into_attribute_boxed(self: Box<Self>) -> Attribute {
-        self.into_attribute()
-    }
-}
+//     fn into_attribute_boxed(self: Box<Self>) -> Attribute {
+//         self.into_attribute()
+//     }
+// }
 
 #[derive(Clone, Debug)]
 struct CheckboxContextValue {
@@ -65,7 +64,7 @@ pub fn Checkbox(
     #[prop(into, optional)] on_keydown: Option<Callback<KeyboardEvent>>,
     #[prop(into, optional)] on_click: Option<Callback<MouseEvent>>,
     #[prop(into, optional)] as_child: MaybeProp<bool>,
-    #[prop(optional)] node_ref: NodeRef<AnyElement>,
+    #[prop(optional)] node_ref: AnyNodeRef,
     #[prop(attrs)] attrs: Vec<(&'static str, Attribute)>,
     children: ChildrenFn,
 ) -> impl IntoView {
@@ -74,7 +73,7 @@ pub fn Checkbox(
     let disabled = Signal::derive(move || disabled.get().unwrap_or(false));
     let value = Signal::derive(move || value.get().unwrap_or("on".into()));
 
-    let button_ref = NodeRef::new();
+    let button_ref = AnyNodeRef::new();
     let composed_refs = use_composed_refs(vec![node_ref, button_ref]);
 
     let is_form_control = Signal::derive(move || {
@@ -89,7 +88,7 @@ pub fn Checkbox(
         on_change: on_checked_change.map(|on_checked_change| {
             Callback::new(move |value| {
                 if let Some(value) = value {
-                    on_checked_change.call(value);
+                    on_checked_change.run(value);
                 }
             })
         }),
@@ -99,7 +98,7 @@ pub fn Checkbox(
 
     let initial_checked_state = RwSignal::new(checked.get_untracked());
     let handle_reset: Rc<Closure<dyn Fn(Event)>> = Rc::new(Closure::new(move |_| {
-        set_checked.call(Some(initial_checked_state.get_untracked()));
+        set_checked.run(Some(initial_checked_state.get_untracked()));
     }));
 
     Effect::new({
@@ -173,7 +172,7 @@ pub fn Checkbox(
                 element=html::button
                 as_child=as_child
                 node_ref=composed_refs
-                attrs=attrs
+                // attrs=attrs
                 on:keydown=compose_callbacks(on_keydown, Some(Callback::new(move |event: KeyboardEvent| {
                     // According to WAI ARIA, checkboxes don't activate on enter keypress.
                     if event.key() == "Enter" {
@@ -181,7 +180,7 @@ pub fn Checkbox(
                     }
                 })), None)
                 on:click=compose_callbacks(on_click, Some(Callback::new(move |event: MouseEvent| {
-                    set_checked.call(Some(match checked.get() {
+                    set_checked.run(Some(match checked.get() {
                         CheckedState::False => CheckedState::True,
                         CheckedState::True => CheckedState::False,
                         CheckedState::Indeterminate => CheckedState::True
@@ -262,7 +261,7 @@ pub fn CheckboxIndicator(
 
 #[component]
 fn BubbleInput(
-    #[prop(into)] control_ref: NodeRef<AnyElement>,
+    #[prop(into)] control_ref: AnyNodeRef,
     #[prop(into)] checked: Signal<CheckedState>,
     #[prop(into)] bubbles: Signal<bool>,
     #[prop(into)] required: Signal<bool>,
@@ -322,7 +321,7 @@ fn BubbleInput(
             style:pointer-events="none"
             style:opacity="0"
             style:margin="0px"
-            {..attrs}
+            // {..attrs}
         />
     }
 }

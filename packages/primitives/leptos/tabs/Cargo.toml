@@ -1,0 +1,20 @@
+[package]
+name = "radix-leptos-tabs"
+description = "Leptos port of Radix Tabs."
+homepage = "https://radix.rustforweb.org/primitives/tabs.html"
+
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[dependencies]
+leptos.workspace = true
+leptos-typed-fallback-show.workspace = true
+leptos-node-ref.workspace = true
+leptos-maybe-callback.workspace = true
+radix-leptos-context.workspace = true
+radix-leptos-id.workspace = true
+radix-leptos-primitive.workspace = true
+radix-leptos-visually-hidden.workspace = true

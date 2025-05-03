@@ -123,18 +123,20 @@ impl Framework for Leptos {
     }
 
     fn format(&self, package: String, path: PathBuf) -> Result<(), Box<dyn Error>> {
-        Command::new("cargo")
+        let _ = Command::new("cargo")
             .arg("fmt")
             .arg("-p")
             .arg(&package)
             .status()?
-            .exit_ok()?;
+            .success();
+        // .exit_ok()?;
 
-        Command::new("leptosfmt")
+        let _ = Command::new("leptosfmt")
             .arg("--quiet")
             .arg(path)
             .status()?
-            .exit_ok()?;
+            .success();
+        // .exit_ok()?;
 
         Ok(())
     }

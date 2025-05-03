@@ -1,4 +1,4 @@
-#![feature(exit_status_error)]
+// #![feature(exit_status_error)]
 
 use std::error::Error;
 use std::path::Path;
@@ -96,12 +96,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
         fs::write(output_path, output)?;
     }
 
-    Command::new("cargo")
+    let _ = Command::new("cargo")
         .arg("fmt")
         .arg("-p")
         .arg("radix-colors")
         .status()?
-        .exit_ok()?;
+        .success();
+    // .exit_ok()?;
 
     Ok(())
 }

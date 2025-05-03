@@ -5,7 +5,8 @@ use leptos_router::{
 };
 
 use crate::primitives::{
-    accessible_icon, arrow, aspect_ratio, avatar, label, progress, separator, visually_hidden,
+    accessible_icon, arrow, aspect_ratio, avatar, label, progress, separator, switch,
+    visually_hidden,
 };
 
 #[component]
@@ -179,16 +180,16 @@ pub fn App() -> impl IntoView {
                     //         // TODO
                     //     </ul>
                     // </li>
-                    // <li>
-                    //     Switch
+                    <li>
+                        Switch
 
-                    //     <ul class="list-none m-0 ms-4 p-0">
-                    //         <li><NavLink href="/switch/styled">Styled</NavLink></li>
-                    //         <li><NavLink href="/switch/controlled">Controlled</NavLink></li>
-                    //         <li><NavLink href="/switch/within-form">Within Form</NavLink></li>
-                    //         <li><NavLink href="/switch/chromatic">Chromatic</NavLink></li>
-                    //     </ul>
-                    // </li>
+                        <ul class="list-none m-0 ms-4 p-0">
+                            <li><NavLink href="/switch/styled">Styled</NavLink></li>
+                            <li><NavLink href="/switch/controlled">Controlled</NavLink></li>
+                            <li><NavLink href="/switch/within-form">Within Form</NavLink></li>
+                            <li><NavLink href="/switch/chromatic">Chromatic</NavLink></li>
+                        </ul>
+                    </li>
                     // <li>
                     //     Toggle
 
@@ -276,10 +277,10 @@ pub fn App() -> impl IntoView {
                     // <Route path="/slot/without-slottable" view=slot::WithoutSlottable />
                     // <Route path="/slot/with-slottable" view=slot::WithSlottable />
 
-                    // <Route path="/switch/styled" view=switch::Styled />
-                    // <Route path="/switch/controlled" view=switch::Controlled />
-                    // <Route path="/switch/within-form" view=switch::WithinForm />
-                    // <Route path="/switch/chromatic" view=switch::Chromatic />
+                    <Route path=path!("/switch/styled") view=switch::Styled />
+                    <Route path=path!("/switch/controlled") view=switch::Controlled />
+                    <Route path=path!("/switch/within-form") view=switch::WithinForm />
+                    <Route path=path!("/switch/chromatic") view=switch::Chromatic />
 
                     // <Route path="/toggle/controlled" view=toggle::Controlled />
                     // <Route path="/toggle/chromatic" view=toggle::Chromatic />

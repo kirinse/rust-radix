@@ -135,20 +135,22 @@ impl Framework for Yew {
     }
 
     fn format(&self, package: String, _path: PathBuf) -> Result<(), Box<dyn Error>> {
-        Command::new("cargo")
+        let _ = Command::new("cargo")
             .arg("fmt")
             .arg("-p")
             .arg(&package)
             .env("RUSTFMT", "yew-fmt")
             .status()?
-            .exit_ok()?;
+            .success();
+        // .exit_ok()?;
 
-        Command::new("cargo")
+        let _ = Command::new("cargo")
             .arg("fmt")
             .arg("-p")
             .arg(&package)
             .status()?
-            .exit_ok()?;
+            .success();
+            // .exit_ok()?;
 
         Ok(())
     }

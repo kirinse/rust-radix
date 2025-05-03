@@ -6,9 +6,9 @@ const COLM_IMG: &str =
 const PEDRO_IMG: &str = "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&w=128&h=128&dpr=2&q=80";
 const BROKEN_IMG: &str = "https://broken.link.com/broken-pic.jpg";
 
-const ROOT_CLASS: &str = "inline-flex items-center justify-center align-middle overflow-hidden select-none rounded-full w-[45px] h-[45px] bg-black/10";
-const IMAGE_CLASS: &str = "w-full h-full object-cover rounded-[inherit]";
-const FALLBACK_CLASS: &str = "w-full h-full flex items-center justify-center bg-white text-violet-900 text-[15px] leading-none font-medium";
+const ROOT_CLASS: &str = "inline-flex items-center justify-center align-middle overflow-hidden select-none rounded-full size-[45px] bg-black/10";
+const IMAGE_CLASS: &str = "size-full object-cover rounded-[inherit]";
+const FALLBACK_CLASS: &str = "size-full flex items-center justify-center text-violet-900 text-[15px] leading-none font-medium";
 
 #[component]
 pub fn Styled() -> impl IntoView {

@@ -92,17 +92,15 @@ pub fn Progress(
     let value_signal = Signal::derive(move || value.get().map(|v| v.clamp(0.0, max_signal.get())));
 
     // Derive signals for data/aria attributes.
-    let progress_state = Signal::derive({
-        let val = value_signal;
-        let mx = max_signal;
-        move || get_progress_state(val.get(), mx.get())
-    });
+    let progress_state =
+        Signal::derive(move || get_progress_state(value_signal.get(), max_signal.get()));
 
     let value_label = Signal::derive({
-        let val = value_signal;
-        let mx = max_signal;
-        let label_cb = get_value_label; // Callback is Copy
-        move || val.get().map(|v| label_cb.run((v, mx.get())))
+        move || {
+            value_signal
+                .get()
+                .map(|v| get_value_label.run((v, max_signal.get())))
+        }
     });
 
     // Add a reactive effect for warning checks

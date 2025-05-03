@@ -128,18 +128,20 @@ impl Framework for Dioxus {
     }
 
     fn format(&self, package: String, path: PathBuf) -> Result<(), Box<dyn Error>> {
-        Command::new("dx")
+        let _ = Command::new("dx")
             .arg("fmt")
             .current_dir(path)
             .status()?
-            .exit_ok()?;
+            .success();
+            // .exit_ok()?;
 
-        Command::new("cargo")
+        let _ = Command::new("cargo")
             .arg("fmt")
             .arg("-p")
             .arg(&package)
             .status()?
-            .exit_ok()?;
+            .success();
+            // .exit_ok()?;
 
         Ok(())
     }

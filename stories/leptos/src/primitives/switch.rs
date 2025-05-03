@@ -1,6 +1,7 @@
-use leptos::{ev::Event, *};
+use leptos::{logging, prelude::*};
 use radix_leptos_label::*;
 use radix_leptos_switch::*;
+use reactive_stores::Store;
 use tailwind_fuse::*;
 
 #[component]
@@ -26,11 +27,11 @@ pub fn Controlled() -> impl IntoView {
     let root_class = Memo::new(move |_| RootClass::default().to_class());
     let thumb_class = Memo::new(move |_| ThumbClass::default().to_class());
 
-    let (checked, set_checked) = create_signal(true);
+    let (checked, set_checked) = signal(true);
 
     view! {
-        <p>This switch is placed adjacent to its label. The state is controlled.</p>
-        <Label attr:for="randBox" attr:class=label_class>This is the label</Label>{' '}
+        <p>This switch is placed adjacent to its label. The state is controlled. checked: {move || checked.get()}</p>
+        <Label attr:r#for="randBox" attr:class=label_class>This is the label</Label>{' '}
         <Switch
             attr:id="randBox"
             attr:class=root_class
@@ -47,51 +48,51 @@ pub fn WithinForm() -> impl IntoView {
     let root_class = Memo::new(move |_| RootClass::default().to_class());
     let thumb_class = Memo::new(move |_| ThumbClass::default().to_class());
 
+    #[derive(Clone, Debug, Store)]
     struct Data {
         optional: bool,
         required: bool,
         stopprop: bool,
     }
 
-    let (data, set_data) = create_signal(Data {
+    let (data, set_data) = signal(Data {
         optional: false,
         required: false,
         stopprop: false,
     });
-    let (checked, set_checked) = create_signal(false);
+    // let (checked, set_checked) = signal(false);
 
     view! {
         <form
-            on:submit=move |event| event.prevent_default()
-            on:change=move |event: Event| {
-                // This event does not exist in the DOM, only in React.
-                // To make this story functional, on_checked_change event handlers were used instead.
+            on:submit=move |event| {event.prevent_default(); logging::log!("data: {:?}", data.get());}
+            // on:change=move |event: Event| {
+            //     // This event does not exist in the DOM, only in React.
+            //     // To make this story functional, on_checked_change event handlers were used instead.
 
-                let input: web_sys::HtmlInputElement = event_target(&event);
+            //     let input: web_sys::HtmlInputElement = event_target(&event);
 
-                match input.name().as_str() {
-                    "optional" => set_data.update(|data| {
-                        data.optional = input.checked();
-                    }),
-                    "required" => set_data.update(|data| {
-                        data.required = input.checked();
-                    }),
-                    "stopprop" => set_data.update(|data| {
-                        data.stopprop = input.checked();
-                    }),
-                    _ => unreachable!("No other inputs exist."),
-                }
-            }
+            //     match input.name().as_str() {
+            //         "optional" => set_data.update(|data| {
+            //             data.optional = input.checked();
+            //         }),
+            //         "required" => set_data.update(|data| {
+            //             data.required = input.checked();
+            //         }),
+            //         "stopprop" => set_data.update(|data| {
+            //             data.stopprop = input.checked();
+            //         }),
+            //         _ => unreachable!("No other inputs exist."),
+            //     }
+            // }
         >
             <fieldset>
                 <legend>optional checked: {move || format!("{}", data.with(|data| data.optional))}</legend>
                 <label>
                     <Switch
                         attr:class=root_class
-                        name="optional"
-                        checked=checked
+                        attr:name="optional"
+                        checked=data.get().optional
                         on_checked_change=move |checked| {
-                            set_checked.set(checked);
                             set_data.update(|data| {
                                 data.optional = checked;
                             })
@@ -110,8 +111,9 @@ pub fn WithinForm() -> impl IntoView {
                 <legend>required checked: {move || format!("{}", data.with(|data| data.required))}</legend>
                 <Switch
                     attr:class=root_class
-                    name="required"
-                    required=true
+                    attr:name="required"
+                    attr:required=true
+                    checked=data.get().required
                     on_checked_change=move |checked| {
                         set_data.update(|data| {
                             data.required = checked;
@@ -130,7 +132,7 @@ pub fn WithinForm() -> impl IntoView {
                 <legend>stop propagation checked: {move || format!("{}", data.with(|data| data.stopprop))}</legend>
                 <Switch
                     attr:class=root_class
-                    name="stopprop"
+                    attr:name="stopprop"
                     on:click=move |event| event.stop_propagation()
                 >
                     <SwitchThumb attr:class=thumb_class />

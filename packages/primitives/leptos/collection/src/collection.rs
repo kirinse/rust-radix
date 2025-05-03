@@ -2,7 +2,7 @@ use std::marker::PhantomData;
 use std::rc::Rc;
 use std::{collections::HashMap, fmt::Debug};
 
-use leptos::{html::AnyElement, *};
+use leptos::{html::AnyElement, prelude::*};
 use nanoid::nanoid;
 use radix_leptos_compose_refs::use_composed_refs;
 
@@ -85,7 +85,7 @@ pub fn CollectionItemSlot<ItemData: Clone + Debug + 'static>(
     #[prop(attrs)] attrs: Vec<(&'static str, Attribute)>,
     children: ChildrenFn,
 ) -> impl IntoView {
-    let (id, _) = create_signal(CollectionItemId::new());
+    let (id, _) = signal(CollectionItemId::new());
     let item_ref = NodeRef::new();
     let composed_ref = use_composed_refs(vec![node_ref, item_ref]);
     let context = expect_context::<CollectionContextValue<ItemData>>();
