@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use radix_leptos_arrow::*;
+use radix_leptos_arrow::Root as Arrow;
 
 #[component]
 pub fn Styled() -> impl IntoView {

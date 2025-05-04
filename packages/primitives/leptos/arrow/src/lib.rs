@@ -6,4 +6,4 @@
 
 mod arrow;
 
-pub use arrow::*;
+pub use arrow::primitive::Root;
