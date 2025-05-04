@@ -40,5 +40,5 @@ pub fn Arrow(
                 {children.with_value(|maybe_children| maybe_children.as_ref().map(|child_fn| child_fn()))}
             </TypedFallbackShow>
         </Primitive>
-    };
+    }
 }

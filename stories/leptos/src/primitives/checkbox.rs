@@ -1,4 +1,4 @@
-use leptos::{ev::Event, *};
+use leptos::{ev::Event, prelude::*};
 use radix_leptos_checkbox::*;
 use radix_leptos_label::*;
 use tailwind_fuse::*;
@@ -37,7 +37,7 @@ pub fn Styled() -> impl IntoView {
         </label>
 
         <h1>Custom label + for</h1>
-        <Label attr:for="one">Label</Label>
+        <Label attr:r#for="one">Label</Label>
         <Checkbox attr:id="one" attr:class=root_class>
             <CheckboxIndicator attr:class=indicator_class />
         </Checkbox>
@@ -63,11 +63,11 @@ pub fn Controlled() -> impl IntoView {
     let root_class = Memo::new(move |_| RootClass::default().to_class());
     let indicator_class = Memo::new(move |_| IndicatorClass::default().to_class());
 
-    let (checked, set_checked) = create_signal(CheckedState::True);
+    let (checked, set_checked) = signal(CheckedState::True);
 
     view! {
         <p>This checkbox is placed adjacent to its label. The state is controlled.</p>
-        <Label attr:for="randBox" attr:class=label_class>Label</Label>{' '}
+        <Label attr:r#for="randBox" attr:class=label_class>Label</Label>{' '}
         <Checkbox
             attr:id="randBox"
             attr:class=root_class
@@ -84,7 +84,7 @@ pub fn Indeterminate() -> impl IntoView {
     let root_class = Memo::new(move |_| RootClass::default().to_class());
     let indicator_class = Memo::new(move |_| IndicatorClass::default().to_class());
 
-    let (checked, set_checked) = create_signal(CheckedState::Indeterminate);
+    let (checked, set_checked) = signal(CheckedState::Indeterminate);
 
     view! {
         <p>
@@ -124,12 +124,12 @@ pub fn WithinForm() -> impl IntoView {
         stopprop: bool,
     }
 
-    let (data, set_data) = create_signal(Data {
+    let (data, set_data) = signal(Data {
         optional: false,
         required: false,
         stopprop: false,
     });
-    let (checked, set_checked) = create_signal(CheckedState::Indeterminate);
+    let (checked, set_checked) = signal(CheckedState::Indeterminate);
 
     view! {
         <form
@@ -238,7 +238,7 @@ pub fn Animated() -> impl IntoView {
     let root_class = Memo::new(move |_| RootClass::default().to_class());
     let animated_indicator_class = Memo::new(move |_| AnimatedIndicatorClass::default().to_class());
 
-    let (checked, set_checked) = create_signal(CheckedState::Indeterminate);
+    let (checked, set_checked) = signal(CheckedState::Indeterminate);
 
     // TODO: fade out doesn't work, might be an issue with Presence component?
 

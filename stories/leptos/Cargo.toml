@@ -19,7 +19,7 @@ radix-leptos-accessible-icon.workspace = true
 radix-leptos-arrow.workspace = true
 radix-leptos-aspect-ratio.workspace = true
 radix-leptos-avatar.workspace = true
-# radix-leptos-checkbox.workspace = true
+radix-leptos-checkbox.workspace = true
 # radix-leptos-collection = { path = "../../packages/primitives/leptos/collection" }
 # radix-leptos-focus-scope = { path = "../../packages/primitives/leptos/focus-scope" }
 radix-leptos-label.workspace = true
@@ -37,4 +37,4 @@ radix-leptos-tabs.workspace = true
 radix-leptos-visually-hidden.workspace = true
 tailwind_fuse.workspace = true
 web-sys.workspace = true
-reactive_stores = "0.2"
+reactive_stores.workspace = true

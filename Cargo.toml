@@ -18,7 +18,7 @@ members = [
     "packages/primitives/leptos/arrow",
     "packages/primitives/leptos/avatar",
     "packages/primitives/leptos/aspect-ratio",
-    # "packages/primitives/leptos/checkbox",
+    "packages/primitives/leptos/checkbox",
     "packages/primitives/leptos/context",
     "packages/primitives/leptos/compose-refs",
     "packages/primitives/leptos/direction",
@@ -61,6 +61,7 @@ dioxus = "0.6.1"
 leptos = "0.8"
 leptos_dom = "0.8"
 leptos_router = "0.8"
+reactive_stores = "0.2"
 leptos-maybe-callback = { git = "https://github.com/kirinse/leptos-utils", branch = "feature/maybe-callback" }
 leptos-node-ref = { git = "https://github.com/kirinse/leptos-utils", branch = "feature/any-node-ref" }
 leptos-style = { git = "https://github.com/kirinse/leptos-utils" }
@@ -84,7 +85,7 @@ radix-leptos-arrow.path = "./packages/primitives/leptos/arrow"
 radix-leptos-aspect-ratio.path = "./packages/primitives/leptos/aspect-ratio"
 radix-leptos-accessible-icon.path = "./packages/primitives/leptos/accessible-icon"
 radix-leptos-avatar.path = "./packages/primitives/leptos/avatar"
-#radix-leptos-checkbox.path = "./packages/primitives/leptos/checkbox"
+radix-leptos-checkbox.path = "./packages/primitives/leptos/checkbox"
 radix-leptos-context.path = "./packages/primitives/leptos/context"
 #radix-leptos-collection.path = "./packages/primitives/leptos/collection"
 radix-leptos-compose-refs.path = "./packages/primitives/leptos/compose-refs"

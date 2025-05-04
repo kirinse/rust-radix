@@ -5,7 +5,7 @@ use leptos_router::{
 };
 
 use crate::primitives::{
-    accessible_icon, arrow, aspect_ratio, avatar, label, progress, separator, switch,
+    accessible_icon, arrow, aspect_ratio, avatar, checkbox, label, progress, separator, switch,
     visually_hidden,
 };
 
@@ -72,18 +72,18 @@ pub fn App() -> impl IntoView {
                             <li><NavLink href="/avatar/chromatic">Chromatic</NavLink></li>
                         </ul>
                     </li>
-                    // <li>
-                    //     Checkbox
+                    <li>
+                        Checkbox
 
-                    //     <ul class="list-none m-0 ms-4 p-0">
-                    //         <li><NavLink href="/checkbox/styled">Styled</NavLink></li>
-                    //         <li><NavLink href="/checkbox/controlled">Controlled</NavLink></li>
-                    //         <li><NavLink href="/checkbox/indeterminate">Indeterminate</NavLink></li>
-                    //         <li><NavLink href="/checkbox/within-form">Within Form</NavLink></li>
-                    //         <li><NavLink href="/checkbox/animated">Animated</NavLink></li>
-                    //         <li><NavLink href="/checkbox/chromatic">Chromatic</NavLink></li>
-                    //     </ul>
-                    // </li>
+                        <ul class="list-none m-0 ms-4 p-0">
+                            <li><NavLink href="/checkbox/styled">Styled</NavLink></li>
+                            <li><NavLink href="/checkbox/controlled">Controlled</NavLink></li>
+                            <li><NavLink href="/checkbox/indeterminate">Indeterminate</NavLink></li>
+                            <li><NavLink href="/checkbox/within-form">Within Form</NavLink></li>
+                            <li><NavLink href="/checkbox/animated">Animated</NavLink></li>
+                            <li><NavLink href="/checkbox/chromatic">Chromatic</NavLink></li>
+                        </ul>
+                    </li>
                     // <li>
                     //     Collection
 
@@ -225,12 +225,12 @@ pub fn App() -> impl IntoView {
                     <Route path=path!("/avatar/styled") view=avatar::Styled />
                     <Route path=path!("/avatar/chromatic") view=avatar::Chromatic />
 
-                    // <Route path="/checkbox/styled" view=checkbox::Styled />
-                    // <Route path="/checkbox/controlled" view=checkbox::Controlled />
-                    // <Route path="/checkbox/indeterminate" view=checkbox::Indeterminate />
-                    // <Route path="/checkbox/within-form" view=checkbox::WithinForm />
-                    // <Route path="/checkbox/animated" view=checkbox::Animated />
-                    // <Route path="/checkbox/chromatic" view=checkbox::Chromatic />
+                    <Route path=path!("/checkbox/styled") view=checkbox::Styled />
+                    <Route path=path!("/checkbox/controlled") view=checkbox::Controlled />
+                    <Route path=path!("/checkbox/indeterminate") view=checkbox::Indeterminate />
+                    <Route path=path!("/checkbox/within-form") view=checkbox::WithinForm />
+                    <Route path=path!("/checkbox/animated") view=checkbox::Animated />
+                    <Route path=path!("/checkbox/chromatic") view=checkbox::Chromatic />
 
                     // <Route path="/collection/basic" view=collection::Basic />
                     // <Route path="/collection/with-element-in-between" view=collection::WithElementsInBetween />
