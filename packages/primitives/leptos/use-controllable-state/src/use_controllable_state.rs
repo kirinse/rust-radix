@@ -1,11 +1,12 @@
 use std::fmt::Debug;
 
 use leptos::prelude::*;
+use leptos_maybe_callback::MaybeCallback;
 
 pub struct UseControllableStateParams<T: Send + Sync + 'static> {
     pub prop: MaybeProp<T>,
     pub default_prop: MaybeProp<T>,
-    pub on_change: Option<Callback<Option<T>>>,
+    pub on_change: MaybeCallback<Option<T>>,
 }
 
 #[track_caller]
@@ -16,16 +17,17 @@ pub fn use_controllable_state<T: Clone + PartialEq + Send + Sync + Debug + Defau
         on_change,
     }: UseControllableStateParams<T>,
 ) -> (Signal<Option<T>>, Callback<Option<T>>) {
-    let is_controlled = Signal::derive(move || prop.get().is_some());
-    let prop_value = prop.get();
-    let (prop_value, set_prop_value) = signal(prop_value);
+    let is_controlled = prop.get_untracked().is_some();
+
+    let (prop_value, set_prop_value) = signal(prop.get_untracked());
 
     let (uncontrolled_prop, set_uncontrolled_prop) =
         use_uncontrolled_state(UseUncontrollableStateParams {
             default_prop,
-            on_change,
+            on_change: on_change.clone(),
         });
-    let value = Signal::derive(move || match is_controlled.get() {
+    
+    let value = Signal::derive(move || match is_controlled {
         true => prop_value.get(),
         false => uncontrolled_prop.get(),
     });
@@ -38,8 +40,8 @@ pub fn use_controllable_state<T: Clone + PartialEq + Send + Sync + Debug + Defau
         //     prop_value.get(),
         // );
         if next_value != value.get() {
-            if is_controlled.get() {
-                if let Some(on_change) = on_change {
+            if is_controlled {
+                if let Some(on_change) = on_change.as_ref() {
                     on_change.run(next_value.clone());
                 }
                 set_prop_value.set(next_value.clone());
@@ -54,7 +56,7 @@ pub fn use_controllable_state<T: Clone + PartialEq + Send + Sync + Debug + Defau
 
 pub struct UseUncontrollableStateParams<T: Send + Sync + 'static> {
     pub default_prop: MaybeProp<T>,
-    pub on_change: Option<Callback<Option<T>>>,
+    pub on_change: MaybeCallback<Option<T>>,
 }
 
 fn use_uncontrolled_state<T: Clone + Default + PartialEq + Send + Sync>(
@@ -68,7 +70,7 @@ fn use_uncontrolled_state<T: Clone + Default + PartialEq + Send + Sync>(
     Effect::new(move |prev_value: Option<Option<T>>| {
         let value = value.get();
         if (prev_value.is_none() && value.is_some()) || prev_value.is_some_and(|p| p != value) {
-            if let Some(on_change) = on_change {
+            if let Some(on_change) = on_change.as_ref() {
                 on_change.run(value.clone());
             } else {
                 set_value.set(value.clone());

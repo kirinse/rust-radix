@@ -66,7 +66,7 @@ leptos-maybe-callback = { git = "https://github.com/kirinse/leptos-utils", branc
 leptos-node-ref = { git = "https://github.com/kirinse/leptos-utils", branch = "feature/any-node-ref" }
 leptos-style = { git = "https://github.com/kirinse/leptos-utils" }
 leptos-typed-fallback-show = { git = "https://github.com/kirinse/leptos-utils", branch = "feature/typed-fallback-show" }
-leptos-use = {git = "https://github.com/Synphonyte/leptos-use", branch = "main"}
+leptos-use = { git = "https://github.com/Synphonyte/leptos-use", branch = "main" }
 log = "0.4.22"
 send_wrapper = "0.6.0"
 serde = "1.0.198"

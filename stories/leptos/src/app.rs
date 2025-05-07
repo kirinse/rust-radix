@@ -5,7 +5,7 @@ use leptos_router::{
 };
 
 use crate::primitives::{
-    accessible_icon, arrow, aspect_ratio, avatar, checkbox, label, progress, separator, switch,
+    accessible_icon, arrow, aspect_ratio, avatar, label, progress, separator, switch,
     visually_hidden,
 };
 
@@ -225,12 +225,12 @@ pub fn App() -> impl IntoView {
                     <Route path=path!("/avatar/styled") view=avatar::Styled />
                     <Route path=path!("/avatar/chromatic") view=avatar::Chromatic />
 
-                    <Route path=path!("/checkbox/styled") view=checkbox::Styled />
-                    <Route path=path!("/checkbox/controlled") view=checkbox::Controlled />
-                    <Route path=path!("/checkbox/indeterminate") view=checkbox::Indeterminate />
-                    <Route path=path!("/checkbox/within-form") view=checkbox::WithinForm />
-                    <Route path=path!("/checkbox/animated") view=checkbox::Animated />
-                    <Route path=path!("/checkbox/chromatic") view=checkbox::Chromatic />
+                    // <Route path=path!("/checkbox/styled") view=checkbox::Styled />
+                    // <Route path=path!("/checkbox/controlled") view=checkbox::Controlled />
+                    // <Route path=path!("/checkbox/indeterminate") view=checkbox::Indeterminate />
+                    // <Route path=path!("/checkbox/within-form") view=checkbox::WithinForm />
+                    // <Route path=path!("/checkbox/animated") view=checkbox::Animated />
+                    // <Route path=path!("/checkbox/chromatic") view=checkbox::Chromatic />
 
                     // <Route path="/collection/basic" view=collection::Basic />
                     // <Route path="/collection/with-element-in-between" view=collection::WithElementsInBetween />

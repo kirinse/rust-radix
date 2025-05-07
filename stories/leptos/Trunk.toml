@@ -5,3 +5,5 @@ command_arguments = [
     "-c",
     "npx tailwindcss -i style/tailwind.css -o style/tailwind.output.css",
 ]
+[serve]
+port = 8081

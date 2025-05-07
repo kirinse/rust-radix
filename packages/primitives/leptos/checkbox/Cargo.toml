@@ -21,3 +21,4 @@ radix-leptos-use-previous.workspace = true
 radix-leptos-use-size.workspace = true
 web-sys = { workspace = true, features = ["Event", "EventInit"] }
 leptos-use.workspace = true
+send_wrapper.workspace = true

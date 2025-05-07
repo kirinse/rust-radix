@@ -6,8 +6,7 @@ use leptos_node_ref::AnyNodeRef;
 
 use radix_leptos_context::create_context;
 use radix_leptos_primitive::Primitive;
-use radix_leptos_use_controllable_state::UseControllableStateParams;
-use radix_leptos_use_controllable_state::use_controllable_state;
+use radix_leptos_use_controllable_state::{UseControllableStateParams, use_controllable_state};
 
 /// A context holding the switch state (checked/disabled) + callback for toggling.
 #[derive(Clone)]
@@ -43,6 +42,9 @@ pub fn Switch(
     /// If true, switch is disabled
     #[prop(optional, default = false)]
     disabled: bool,
+    /// If true, switch is required
+    #[prop(optional, default = false)]
+    required: bool,
     /// Extra classes, e.g. "bg-gray-500", etc.
     #[prop(optional, into)]
     class: MaybeProp<String>,
@@ -53,7 +55,7 @@ pub fn Switch(
     node_ref: AnyNodeRef,
 ) -> impl IntoView {
     // 1) figure out initial state
-    let on_checked_change = on_checked_change.as_callback();
+    // let on_checked_change = on_checked_change.as_callback();
     let children = StoredValue::new(children.into_inner());
     // let initial = checked
     //     .get()
@@ -67,7 +69,8 @@ pub fn Switch(
             if let Some(value) = value {
                 on_checked_change.run(value);
             }
-        })),
+        }))
+        .into(),
     });
 
     // 2) If external “checked” changes, override local
@@ -87,6 +90,17 @@ pub fn Switch(
             set_checked.run(new_val);
         }
     };
+    let attrs = view! {
+        <{..}
+            type="button"
+            role="switch"
+            disabled=disabled
+            data-state=move || if checked.with(|c| c == &Some(true)) { "checked" } else { "unchecked" }
+            data-disabled=move || if disabled { Some("") } else { None }
+            aria-checked=move || checked.with(|c| c.unwrap_or_default().to_string())
+            aria-required=move || required.to_string()
+        />
+    };
 
     // 5) Render the “Root” as a <button>
     view! {
@@ -96,15 +110,9 @@ pub fn Switch(
         }>
             <Primitive
                 element={html::button}
+                {..attrs}
                 node_ref={node_ref}
-                {..}
-                type="button"
-                role="switch"
-                data-state=move || if checked.with(|c| c == &Some(true)) { "checked" } else { "unchecked" }
-                data-disabled=move || if disabled { Some("") } else { None }
-                aria-checked=move || if checked.with(|c| c == &Some(true)) { "true" } else { "false" }
-                disabled=disabled
-                class=move || {
+                attr:class=move || {
                     format!("radix-leptos-switch-root {}", class.get().unwrap_or_default())
                 }
                 on:click=handle_click

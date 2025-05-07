@@ -92,13 +92,12 @@ pub fn Checkbox(
 
     let (checked, set_checked) = use_controllable_state(UseControllableStateParams {
         prop: checked,
-        on_change: *on_checked_change.map(|on_checked_change| {
-            Callback::new(move |value| {
-                if let Some(value) = value {
-                    on_checked_change.run(value);
-                }
-            })
-        }),
+        on_change: Some(Callback::new(move |value| {
+            if let Some(value) = value {
+                on_checked_change.run(value);
+            }
+        }))
+        .into(),
         default_prop: default_checked,
     });
     let checked = Signal::derive(move || checked.get().unwrap_or(CheckedState::False));
@@ -171,10 +170,10 @@ pub fn Checkbox(
         <{..}
             type="button"
             role="checkbox"
-            aria-checked=move|| checked.get().to_string()
-            aria-required=move || required.get().to_string()
-            data-state=move || get_state(checked.get())
-            data-disabled=move || disabled.get().then_some("")
+            aria-checked=move|| checked.with(|c|c.to_string())
+            aria-required=move || required.with(|r|r.to_string())
+            data-state=move || checked.with(|c|get_state(*c))
+            data-disabled=move || disabled.with(|d|d.then_some(""))
             disabled=move || disabled.get()
             value=value
         />

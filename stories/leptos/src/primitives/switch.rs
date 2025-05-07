@@ -1,7 +1,6 @@
 use leptos::{logging, prelude::*};
 use radix_leptos_label::*;
 use radix_leptos_switch::*;
-use reactive_stores::Store;
 use tailwind_fuse::*;
 
 #[component]
@@ -48,20 +47,21 @@ pub fn WithinForm() -> impl IntoView {
     let root_class = Memo::new(move |_| RootClass::default().to_class());
     let thumb_class = Memo::new(move |_| ThumbClass::default().to_class());
 
-    #[derive(Clone, Debug, Store)]
+    #[derive(Clone, Debug)]
     struct Data {
         optional: bool,
         required: bool,
         stopprop: bool,
     }
-
-    let (data, set_data) = signal(Data {
-        optional: false,
-        required: false,
-        stopprop: false,
+    let (optional_checked, set_optional_checked) = signal(false);
+    let (required_checked, set_required_checked) = signal(false);
+    let data = Signal::derive(move || {
+        Data {
+            optional: optional_checked.get(),
+            required: required_checked.get(),
+            stopprop: false,
+        }
     });
-    // let (checked, set_checked) = signal(false);
-
     view! {
         <form
             on:submit=move |event| {event.prevent_default(); logging::log!("data: {:?}", data.get());}
@@ -91,11 +91,9 @@ pub fn WithinForm() -> impl IntoView {
                     <Switch
                         attr:class=root_class
                         attr:name="optional"
-                        checked=data.get().optional
+                        checked=optional_checked
                         on_checked_change=move |checked| {
-                            set_data.update(|data| {
-                                data.optional = checked;
-                            })
+                            set_optional_checked.update(|v| *v = checked)
                         }
                     >
                         <SwitchThumb attr:class=thumb_class />
@@ -112,13 +110,9 @@ pub fn WithinForm() -> impl IntoView {
                 <Switch
                     attr:class=root_class
                     attr:name="required"
-                    attr:required=true
-                    checked=data.get().required
-                    on_checked_change=move |checked| {
-                        set_data.update(|data| {
-                            data.required = checked;
-                        });
-                    }
+                    required=true
+                    checked=required_checked
+                    on_checked_change=move |checked|  set_required_checked.update(|v| *v = checked)
                 >
                     <SwitchThumb attr:class=thumb_class />
                 </Switch>
