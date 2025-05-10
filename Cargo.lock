@@ -2263,16 +2263,18 @@ dependencies = [
 
 [[package]]
 name = "leptos-maybe-callback"
-version = "0.0.3"
-source = "git+https://github.com/kirinse/leptos-utils?branch=feature%2Fmaybe-callback#4ec58b500b5b4829cf60626a5e32989b7cb5beb8"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bff44378da0a611bd446e8354585fa0768206610b8e4b0ab8e6ce5988e06a0cc"
 dependencies = [
  "leptos",
 ]
 
 [[package]]
 name = "leptos-node-ref"
-version = "0.0.3"
-source = "git+https://github.com/kirinse/leptos-utils?branch=feature%2Fany-node-ref#b7602d12ef39ab416f367d29987a6aa9496dc7e8"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4f57b1ebc451fe9e7b6c7eba680fa8bc7313b410cc6c0f18481cb55a60ff3ac6"
 dependencies = [
  "leptos",
  "send_wrapper",
@@ -2280,8 +2282,9 @@ dependencies = [
 
 [[package]]
 name = "leptos-typed-fallback-show"
-version = "0.0.4"
-source = "git+https://github.com/kirinse/leptos-utils?branch=feature%2Ftyped-fallback-show#d30cefb5e6c750f344700d4fa083d0e074b4aad4"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "51cbf48cf93cbdebd4bc02a78c647d9dbe482c3153eef27e0731cf0c888258a4"
 dependencies = [
  "leptos",
 ]
@@ -3292,6 +3295,7 @@ dependencies = [
  "radix-leptos-arrow",
  "radix-leptos-aspect-ratio",
  "radix-leptos-avatar",
+ "radix-leptos-checkbox",
  "radix-leptos-label",
  "radix-leptos-presence",
  "radix-leptos-progress",
@@ -3311,9 +3315,13 @@ dependencies = [
  "leptos",
  "leptos-maybe-callback",
  "leptos-node-ref",
+ "radix-leptos-compose-refs",
  "radix-leptos-context",
  "radix-leptos-primitive",
  "radix-leptos-use-controllable-state",
+ "radix-leptos-use-previous",
+ "radix-leptos-use-size",
+ "web-sys",
 ]
 
 [[package]]

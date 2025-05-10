@@ -5,8 +5,8 @@ use leptos_maybe_callback::MaybeCallback;
 
 pub struct UseControllableStateParams<T: Send + Sync + 'static> {
     pub prop: MaybeProp<T>,
-    pub default_prop: MaybeProp<T>,
-    pub on_change: MaybeCallback<Option<T>>,
+    pub default_prop: T,
+    pub on_change: MaybeCallback<T>,
 }
 
 #[track_caller]
@@ -16,38 +16,38 @@ pub fn use_controllable_state<T: Clone + PartialEq + Send + Sync + Debug + Defau
         default_prop,
         on_change,
     }: UseControllableStateParams<T>,
-) -> (Signal<Option<T>>, Callback<Option<T>>) {
-    let is_controlled = prop.get_untracked().is_some();
-
-    let (prop_value, set_prop_value) = signal(prop.get_untracked());
-
+) -> (Signal<T>, Callback<T>) {
     let (uncontrolled_prop, set_uncontrolled_prop) =
         use_uncontrolled_state(UseUncontrollableStateParams {
             default_prop,
             on_change: on_change.clone(),
         });
-    
+    let is_controlled = prop.get_untracked().is_some();
+
+    let (prop_value, set_prop_value) = signal(prop.get_untracked().unwrap_or_default());
+
     let value = Signal::derive(move || match is_controlled {
         true => prop_value.get(),
         false => uncontrolled_prop.get(),
     });
 
-    let set_value = Callback::new(move |next_value: Option<T>| {
-        // logging::log!(
-        //     "is_controlled: {:?}, next_value: {:?}, prop: {:?}",
-        //     is_controlled.get(),
-        //     &next_value,
-        //     prop_value.get(),
-        // );
-        if next_value != value.get() {
-            if is_controlled {
-                if let Some(on_change) = on_change.as_ref() {
-                    on_change.run(next_value.clone());
-                }
-                set_prop_value.set(next_value.clone());
-            } else {
-                set_uncontrolled_prop.set(next_value);
+    let set_value = Callback::new(move |next_value: T| {
+        #[cfg(debug_assertions)]
+        leptos::logging::log!(
+            "is_controlled: {:?}, next_value: {:?}, value: {:?}",
+            is_controlled,
+            &next_value,
+            value.get(),
+        );
+        if is_controlled {
+            if next_value != value.get() {
+                // if let Some(on_change) = on_change.as_ref() {
+                on_change.as_callback().run(next_value.clone());
+                set_prop_value.set(next_value);
+                // }
             }
+        } else {
+            set_uncontrolled_prop.set(next_value);
         }
     });
 
@@ -55,28 +55,27 @@ pub fn use_controllable_state<T: Clone + PartialEq + Send + Sync + Debug + Defau
 }
 
 pub struct UseUncontrollableStateParams<T: Send + Sync + 'static> {
-    pub default_prop: MaybeProp<T>,
-    pub on_change: MaybeCallback<Option<T>>,
+    pub default_prop: T,
+    pub on_change: MaybeCallback<T>,
 }
 
-fn use_uncontrolled_state<T: Clone + Default + PartialEq + Send + Sync>(
+fn use_uncontrolled_state<T: Clone + Default + Debug + PartialEq + Send + Sync>(
     UseUncontrollableStateParams {
         default_prop,
         on_change,
     }: UseUncontrollableStateParams<T>,
-) -> (ReadSignal<Option<T>>, WriteSignal<Option<T>>) {
-    let (value, set_value) = signal(Some(default_prop.get_untracked().unwrap_or_default()));
+) -> (ReadSignal<T>, WriteSignal<T>) {
+    let (value, set_value) = signal(default_prop);
+    let prev_value = StoredValue::new(value.get_untracked());
 
-    Effect::new(move |prev_value: Option<Option<T>>| {
-        let value = value.get();
-        if (prev_value.is_none() && value.is_some()) || prev_value.is_some_and(|p| p != value) {
+    Effect::new(move |_| {
+        if prev_value.get_value() != value.get() {
             if let Some(on_change) = on_change.as_ref() {
-                on_change.run(value.clone());
-            } else {
-                set_value.set(value.clone());
+                on_change.run(value.get());
             }
+            set_value.set(value.get());
+            prev_value.set_value(value.get());
         }
-        value
     });
 
     (value, set_value)

@@ -1,4 +1,4 @@
-use leptos::{logging, prelude::*};
+use leptos::prelude::*;
 use radix_leptos_label::*;
 use radix_leptos_switch::*;
 use tailwind_fuse::*;
@@ -13,8 +13,8 @@ pub fn Styled() -> impl IntoView {
         <p>This switch is nested inside a label. The state is uncontrolled.</p>
         <Label attr:class=label_class>
             This is the label{' '}
-            <Switch attr:class=root_class>
-                <SwitchThumb attr:class=thumb_class />
+            <Switch class=root_class>
+                <SwitchThumb class=thumb_class />
             </Switch>
         </Label>
     }
@@ -33,11 +33,11 @@ pub fn Controlled() -> impl IntoView {
         <Label attr:r#for="randBox" attr:class=label_class>This is the label</Label>{' '}
         <Switch
             attr:id="randBox"
-            attr:class=root_class
+            class=root_class
             checked=checked
             on_checked_change=move |checked| set_checked.set(checked)
         >
-            <SwitchThumb attr:class=thumb_class />
+            <SwitchThumb class=thumb_class />
         </Switch>
     }
 }
@@ -55,16 +55,14 @@ pub fn WithinForm() -> impl IntoView {
     }
     let (optional_checked, set_optional_checked) = signal(false);
     let (required_checked, set_required_checked) = signal(false);
-    let data = Signal::derive(move || {
-        Data {
-            optional: optional_checked.get(),
-            required: required_checked.get(),
-            stopprop: false,
-        }
+    let data = Signal::derive(move || Data {
+        optional: optional_checked.get(),
+        required: required_checked.get(),
+        stopprop: false,
     });
     view! {
         <form
-            on:submit=move |event| {event.prevent_default(); logging::log!("data: {:?}", data.get());}
+            on:submit=move |event| {event.prevent_default(); leptos::logging::log!("data: {:?}", data.get());}
             // on:change=move |event: Event| {
             //     // This event does not exist in the DOM, only in React.
             //     // To make this story functional, on_checked_change event handlers were used instead.
@@ -89,14 +87,14 @@ pub fn WithinForm() -> impl IntoView {
                 <legend>optional checked: {move || format!("{}", data.with(|data| data.optional))}</legend>
                 <label>
                     <Switch
-                        attr:class=root_class
-                        attr:name="optional"
+                        class=root_class
+                        name="optional"
                         checked=optional_checked
                         on_checked_change=move |checked| {
                             set_optional_checked.update(|v| *v = checked)
                         }
                     >
-                        <SwitchThumb attr:class=thumb_class />
+                        <SwitchThumb class=thumb_class />
                     </Switch>{' '}
                     with label
                 </label>
@@ -108,13 +106,13 @@ pub fn WithinForm() -> impl IntoView {
             <fieldset>
                 <legend>required checked: {move || format!("{}", data.with(|data| data.required))}</legend>
                 <Switch
-                    attr:class=root_class
-                    attr:name="required"
+                    class=root_class
+                    name="required"
                     required=true
                     checked=required_checked
                     on_checked_change=move |checked|  set_required_checked.update(|v| *v = checked)
                 >
-                    <SwitchThumb attr:class=thumb_class />
+                    <SwitchThumb class=thumb_class />
                 </Switch>
             </fieldset>
 
@@ -125,11 +123,11 @@ pub fn WithinForm() -> impl IntoView {
             <fieldset>
                 <legend>stop propagation checked: {move || format!("{}", data.with(|data| data.stopprop))}</legend>
                 <Switch
-                    attr:class=root_class
-                    attr:name="stopprop"
+                    class=root_class
+                    name="stopprop"
                     on:click=move |event| event.stop_propagation()
                 >
-                    <SwitchThumb attr:class=thumb_class />
+                    <SwitchThumb class=thumb_class />
                 </Switch>
             </fieldset>
 
@@ -147,49 +145,58 @@ pub fn Chromatic() -> impl IntoView {
     let thumb_class = Memo::new(move |_| ThumbClass::default().to_class());
     let root_attr_class = Memo::new(move |_| RootAttrClass::default().to_class());
     let thumb_attr_class = Memo::new(move |_| ThumbAttrClass::default().to_class());
-
+    let (controlled_on, set_controlled_on) = signal(true);
+    let (controlled_off, set_controlled_off) = signal(false);
     view! {
         <h1>Uncontrolled</h1>
         <h2>Off</h2>
-        <Switch attr:class=root_class>
-            <SwitchThumb attr:class=thumb_class />
+        <Switch class=root_class>
+            <SwitchThumb class=thumb_class />
         </Switch>
 
         <h2>On</h2>
-        <Switch attr:class=root_class default_checked=true>
-            <SwitchThumb attr:class=thumb_class />
+        <Switch class=root_class default_checked=true>
+            <SwitchThumb class=thumb_class />
         </Switch>
 
         <h1>Controlled</h1>
         <h2>Off</h2>
-        <Switch attr:class=root_class checked=false>
-            <SwitchThumb attr:class=thumb_class />
+        <Switch
+            class=root_class
+            checked=controlled_off
+            on_checked_change=move |checked| set_controlled_off.set(checked)
+        >
+            <SwitchThumb class=thumb_class />
         </Switch>
 
         <h2>On</h2>
-        <Switch attr:class=root_class checked=true>
-            <SwitchThumb attr:class=thumb_class />
+        <Switch
+            class=root_class
+            checked=controlled_on
+            on_checked_change=move |checked| set_controlled_on.set(checked)
+        >
+            <SwitchThumb class=thumb_class />
         </Switch>
 
         <h1>Disabled</h1>
-        <Switch attr:class=root_class disabled=true>
-            <SwitchThumb attr:class=thumb_class />
+        <Switch class=root_class disabled=true>
+            <SwitchThumb class=thumb_class />
         </Switch>
 
         <h1>State attributes</h1>
         <h2>Unchecked</h2>
-        <Switch attr:class=root_attr_class>
-            <SwitchThumb attr:class=thumb_attr_class />
+        <Switch class=root_attr_class>
+            <SwitchThumb class=thumb_attr_class />
         </Switch>
 
         <h2>Checked</h2>
-        <Switch attr:class=root_attr_class default_checked=true>
-            <SwitchThumb attr:class=thumb_attr_class />
+        <Switch class=root_attr_class default_checked=true>
+            <SwitchThumb class=thumb_attr_class />
         </Switch>
 
         <h2>Disabled</h2>
-        <Switch attr:class=root_attr_class default_checked=true disabled=true>
-            <SwitchThumb attr:class=thumb_attr_class />
+        <Switch class=root_attr_class default_checked=true disabled=true>
+            <SwitchThumb class=thumb_attr_class />
         </Switch>
     }
 }
