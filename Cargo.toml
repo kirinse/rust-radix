@@ -31,6 +31,7 @@ members = [
     "packages/primitives/leptos/separator",
     "packages/primitives/leptos/switch",
     "packages/primitives/leptos/tabs",
+    "packages/primitives/leptos/toggle",
     "packages/primitives/leptos/use-controllable-state",
     "packages/primitives/leptos/use-escape-keydown",
     "packages/primitives/leptos/use-previous",
@@ -116,7 +117,7 @@ radix-leptos-separator.path = "./packages/primitives/leptos/separator"
 #radix-leptos-slot.path = "./packages/primitives/leptos/slot"
 radix-leptos-switch.path = "./packages/primitives/leptos/switch"
 radix-leptos-tabs.path = "./packages/primitives/leptos/tabs"
-#radix-leptos-toggle.path = "./packages/primitives/leptos/toggle"
+radix-leptos-toggle.path = "./packages/primitives/leptos/toggle"
 radix-leptos-use-controllable-state.path = "./packages/primitives/leptos/use-controllable-state"
 radix-leptos-use-escape-keydown.path = "./packages/primitives/leptos/use-escape-keydown"
 radix-leptos-use-previous.path = "./packages/primitives/leptos/use-previous"

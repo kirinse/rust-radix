@@ -5,7 +5,7 @@ use leptos_router::{
 };
 
 use crate::primitives::{
-    accessible_icon, arrow, aspect_ratio, avatar, checkbox, label, progress, separator, switch, visually_hidden
+    accessible_icon, arrow, aspect_ratio, avatar, checkbox, label, progress, separator, switch, toggle, visually_hidden
 };
 
 #[component]
@@ -189,14 +189,14 @@ pub fn App() -> impl IntoView {
                             <li><NavLink href="/switch/chromatic">Chromatic</NavLink></li>
                         </ul>
                     </li>
-                    // <li>
-                    //     Toggle
+                    <li>
+                        Toggle
 
-                    //     <ul class="list-none m-0 ms-4 p-0">
-                    //         <li><NavLink href="/toggle/controlled">Controlled</NavLink></li>
-                    //         <li><NavLink href="/toggle/chromatic">Chromatic</NavLink></li>
-                    //     </ul>
-                    // </li>
+                        <ul class="list-none m-0 ms-4 p-0">
+                            <li><NavLink href="/toggle/controlled">Controlled</NavLink></li>
+                            <li><NavLink href="/toggle/chromatic">Chromatic</NavLink></li>
+                        </ul>
+                    </li>
                     <li>
                         Visually Hidden
 
@@ -281,8 +281,8 @@ pub fn App() -> impl IntoView {
                     <Route path=path!("/switch/within-form") view=switch::WithinForm />
                     <Route path=path!("/switch/chromatic") view=switch::Chromatic />
 
-                    // <Route path="/toggle/controlled" view=toggle::Controlled />
-                    // <Route path="/toggle/chromatic" view=toggle::Chromatic />
+                    <Route path=path!("/toggle/controlled") view=toggle::Controlled />
+                    <Route path=path!("/toggle/chromatic") view=toggle::Chromatic />
 
                     <Route path=path!("/visually-hidden/basic") view=visually_hidden::Basic />
                 </Routes>

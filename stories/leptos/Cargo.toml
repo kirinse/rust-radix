@@ -33,7 +33,7 @@ radix-leptos-progress.workspace = true
 radix-leptos-separator.workspace = true
 radix-leptos-switch.workspace = true
 radix-leptos-tabs.workspace = true
-# radix-leptos-toggle = { path = "../../packages/primitives/leptos/toggle" }
+radix-leptos-toggle.workspace = true
 radix-leptos-visually-hidden.workspace = true
 tailwind_fuse.workspace = true
 web-sys.workspace = true

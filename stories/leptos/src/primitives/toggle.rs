@@ -1,4 +1,4 @@
-use leptos::*;
+use leptos::prelude::*;
 use radix_leptos_toggle::*;
 use tailwind_fuse::*;
 
@@ -6,10 +6,15 @@ use tailwind_fuse::*;
 pub fn Controlled() -> impl IntoView {
     let root_class = Memo::new(move |_| RootClass::default().to_class());
 
-    let (pressed, set_pressed) = create_signal(true);
+    let (pressed, set_pressed) = signal(true);
 
     view! {
-        <Toggle attr:class=root_class on_pressed_change=move |pressed| set_pressed.set(pressed)>
+        <Toggle
+            attr:class=root_class
+            pressed=pressed
+            on_pressed_change=move |pressed| set_pressed.set(pressed)
+            attr:aria-label="Toggle"
+        >
             {move || match pressed.get() {
                 true => "On",
                 false => "Off"
@@ -22,6 +27,8 @@ pub fn Controlled() -> impl IntoView {
 pub fn Chromatic() -> impl IntoView {
     let root_class = Memo::new(move |_| RootClass::default().to_class());
     let root_attr_class = Memo::new(move |_| RootAttrClass::default().to_class());
+    let (controlled_off, set_controlled_off) = signal(false);
+    let (controlled_on, set_controlled_on) = signal(true);
 
     view! {
         <h1>Uncontrolled</h1>
@@ -33,10 +40,10 @@ pub fn Chromatic() -> impl IntoView {
 
         <h1>Controlled</h1>
         <h2>Off</h2>
-        <Toggle attr:class=root_class pressed=false>Toggle</Toggle>
+        <Toggle attr:class=root_class pressed=controlled_off on_pressed_change=move |pressed| set_controlled_off.set(pressed)>Toggle</Toggle>
 
         <h2>On</h2>
-        <Toggle attr:class=root_class pressed=true>Toggle</Toggle>
+        <Toggle attr:class=root_class pressed=controlled_on on_pressed_change=move |pressed| set_controlled_on.set(pressed)>Toggle</Toggle>
 
         <h2>Disabled</h2>
         <Toggle attr:class=root_class disabled=true>Toggle</Toggle>

@@ -3303,6 +3303,7 @@ dependencies = [
  "radix-leptos-separator",
  "radix-leptos-switch",
  "radix-leptos-tabs",
+ "radix-leptos-toggle",
  "radix-leptos-visually-hidden",
  "reactive_stores",
  "tailwind_fuse",
@@ -3337,6 +3338,17 @@ dependencies = [
  "radix-leptos-id",
  "radix-leptos-primitive",
  "radix-leptos-visually-hidden",
+]
+
+[[package]]
+name = "radix-leptos-toggle"
+version = "0.0.2"
+dependencies = [
+ "leptos",
+ "leptos-maybe-callback",
+ "leptos-node-ref",
+ "radix-leptos-primitive",
+ "radix-leptos-use-controllable-state",
 ]
 
 [[package]]
