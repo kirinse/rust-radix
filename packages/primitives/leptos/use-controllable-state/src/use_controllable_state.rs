@@ -22,28 +22,27 @@ pub fn use_controllable_state<T: Clone + PartialEq + Send + Sync + Debug + Defau
             default_prop,
             on_change: on_change.clone(),
         });
-    let is_controlled = prop.get_untracked().is_some();
+    let prop = Signal::derive(move || prop.get());
+    let is_controlled = Signal::derive(move || prop.get().is_some());
 
-    let (prop_value, set_prop_value) = signal(prop.get_untracked().unwrap_or_default());
-
-    let value = Signal::derive(move || match is_controlled {
-        true => prop_value.get(),
+    let value = Signal::derive(move || match is_controlled.get() {
+        true => prop.get().unwrap_or_default(),
         false => uncontrolled_prop.get(),
     });
 
     let set_value = Callback::new(move |next_value: T| {
         #[cfg(debug_assertions)]
         leptos::logging::log!(
-            "is_controlled: {:?}, next_value: {:?}, value: {:?}",
-            is_controlled,
+            "is_controlled: {}, next_value: {:?}, value: {:?}",
+            is_controlled.get(),
             &next_value,
             value.get(),
         );
-        if is_controlled {
+        if is_controlled.get() {
             if next_value != value.get() {
                 // if let Some(on_change) = on_change.as_ref() {
                 on_change.as_callback().run(next_value.clone());
-                set_prop_value.set(next_value);
+                // set_prop_value.set(next_value);
                 // }
             }
         } else {

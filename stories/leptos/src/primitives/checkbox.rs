@@ -1,4 +1,4 @@
-use leptos::{ev::Event, prelude::*};
+use leptos::prelude::*;
 use radix_leptos_checkbox::*;
 use radix_leptos_label::*;
 use tailwind_fuse::*;
@@ -100,12 +100,13 @@ pub fn Indeterminate() -> impl IntoView {
         <button
             type="button"
             on:click=move |_| {
-                set_checked.update(|checked| {
-                    *checked = match checked {
-                        CheckedState::Indeterminate => CheckedState::False,
-                        _ => CheckedState::Indeterminate,
-                    };
-                })
+                let new_state = match checked.get() {
+                    CheckedState::Indeterminate => CheckedState::False,
+                    _ => CheckedState::Indeterminate,
+                };
+                set_checked.set(new_state);
+                #[cfg(debug_assertions)]
+                leptos::logging::log!("toggled checked: {:?}", checked.get());
             }
         >
             Toggle indeterminate
@@ -118,6 +119,7 @@ pub fn WithinForm() -> impl IntoView {
     let root_class = Memo::new(move |_| RootClass::default().to_class());
     let indicator_class = Memo::new(move |_| IndicatorClass::default().to_class());
 
+    #[derive(Clone, Debug)]
     struct Data {
         optional: bool,
         required: bool,
@@ -133,26 +135,26 @@ pub fn WithinForm() -> impl IntoView {
 
     view! {
         <form
-            on:submit=move |event| event.prevent_default()
-            on:change=move |event: Event| {
-                // This event does not exist in the DOM, only in React.
-                // To make this story functional, on_checked_change event handlers were used instead.
+            on:submit=move |event| {event.prevent_default(); leptos::logging::log!("data: {:?}", data.get());}
+            // on:change=move |event: Event| {
+            //     // This event does not exist in the DOM, only in React.
+            //     // To make this story functional, on_checked_change event handlers were used instead.
 
-                let input: web_sys::HtmlInputElement = event_target(&event);
+            //     let input: web_sys::HtmlInputElement = event_target(&event);
 
-                match input.name().as_str() {
-                    "optional" => set_data.update(|data| {
-                        data.optional = input.checked();
-                    }),
-                    "required" => set_data.update(|data| {
-                        data.required = input.checked();
-                    }),
-                    "stopprop" => set_data.update(|data| {
-                        data.stopprop = input.checked();
-                    }),
-                    _ => unreachable!("No other inputs exist."),
-                }
-            }
+            //     match input.name().as_str() {
+            //         "optional" => set_data.update(|data| {
+            //             data.optional = input.checked();
+            //         }),
+            //         "required" => set_data.update(|data| {
+            //             data.required = input.checked();
+            //         }),
+            //         "stopprop" => set_data.update(|data| {
+            //             data.stopprop = input.checked();
+            //         }),
+            //         _ => unreachable!("No other inputs exist."),
+            //     }
+            // }
         >
             <fieldset>
                 <legend>optional checked: {move || format!("{}", data.with(|data| data.optional))}</legend>
