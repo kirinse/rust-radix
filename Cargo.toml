@@ -19,6 +19,7 @@ members = [
     "packages/primitives/leptos/avatar",
     "packages/primitives/leptos/aspect-ratio",
     "packages/primitives/leptos/checkbox",
+    "packages/primitives/leptos/collection",
     "packages/primitives/leptos/context",
     "packages/primitives/leptos/compose-refs",
     "packages/primitives/leptos/direction",
@@ -29,6 +30,7 @@ members = [
     "packages/primitives/leptos/presence",
     "packages/primitives/leptos/progress",
     "packages/primitives/leptos/separator",
+    "packages/primitives/leptos/slot",
     "packages/primitives/leptos/switch",
     "packages/primitives/leptos/tabs",
     "packages/primitives/leptos/toggle",
@@ -96,7 +98,7 @@ radix-leptos-accessible-icon.path = "./packages/primitives/leptos/accessible-ico
 radix-leptos-avatar.path = "./packages/primitives/leptos/avatar"
 radix-leptos-checkbox.path = "./packages/primitives/leptos/checkbox"
 radix-leptos-context.path = "./packages/primitives/leptos/context"
-#radix-leptos-collection.path = "./packages/primitives/leptos/collection"
+radix-leptos-collection.path = "./packages/primitives/leptos/collection"
 radix-leptos-compose-refs.path = "./packages/primitives/leptos/compose-refs"
 radix-leptos-direction.path = "./packages/primitives/leptos/direction"
 radix-leptos-dismissable-layer.path = "./packages/primitives/leptos/dismissable-layer"
@@ -114,7 +116,7 @@ radix-leptos-progress.path = "./packages/primitives/leptos/progress"
 #radix-leptos-roving-focus.path = "./packages/primitives/leptos/roving-focus"
 #radix-leptos-select.path = "./packages/primitives/leptos/select"
 radix-leptos-separator.path = "./packages/primitives/leptos/separator"
-#radix-leptos-slot.path = "./packages/primitives/leptos/slot"
+radix-leptos-slot.path = "./packages/primitives/leptos/slot"
 radix-leptos-switch.path = "./packages/primitives/leptos/switch"
 radix-leptos-tabs.path = "./packages/primitives/leptos/tabs"
 radix-leptos-toggle.path = "./packages/primitives/leptos/toggle"

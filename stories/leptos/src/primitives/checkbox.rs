@@ -278,6 +278,9 @@ pub fn Chromatic() -> impl IntoView {
     let root_attr_class = Memo::new(move |_| RootAttrClass::default().to_class());
     let indicator_attr_class = Memo::new(move |_| IndicatorAttrClass::default().to_class());
 
+    let (controlled_checked, set_controlled_checked) = signal(CheckedState::True);
+    let (controlled_unchecked, set_controlled_unchecked) = signal(CheckedState::False);
+
     view! {
         <h1>Uncontrolled</h1>
         <h2>Unchecked</h2>
@@ -292,12 +295,20 @@ pub fn Chromatic() -> impl IntoView {
 
         <h1>Controlled</h1>
         <h2>Unchecked</h2>
-        <Checkbox attr:class=root_class checked=CheckedState::False>
+        <Checkbox
+            attr:class=root_class
+            checked=controlled_unchecked
+            on_checked_change=move |state| set_controlled_unchecked.set(state)
+        >
             <CheckboxIndicator attr:class=indicator_class />
         </Checkbox>
 
         <h2>Checked</h2>
-        <Checkbox attr:class=root_class checked=CheckedState::True>
+        <Checkbox
+            attr:class=root_class
+            checked=controlled_checked
+            on_checked_change=move |state| set_controlled_checked.set(state)
+        >
             <CheckboxIndicator attr:class=indicator_class />
         </Checkbox>
 

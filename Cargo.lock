@@ -3190,6 +3190,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "radix-leptos-collection"
+version = "0.0.2"
+dependencies = [
+ "leptos",
+ "leptos-node-ref",
+ "nanoid",
+ "radix-leptos-compose-refs",
+ "radix-leptos-slot",
+ "web-sys",
+]
+
+[[package]]
 name = "radix-leptos-compose-refs"
 version = "0.0.2"
 dependencies = [
@@ -3209,6 +3221,7 @@ name = "radix-leptos-direction"
 version = "0.0.2"
 dependencies = [
  "leptos",
+ "radix-leptos-context",
 ]
 
 [[package]]
@@ -3281,6 +3294,16 @@ dependencies = [
  "leptos",
  "leptos-node-ref",
  "radix-leptos-primitive",
+]
+
+[[package]]
+name = "radix-leptos-slot"
+version = "0.0.2"
+dependencies = [
+ "leptos",
+ "leptos-node-ref",
+ "leptos_dom",
+ "radix-leptos-compose-refs",
 ]
 
 [[package]]
@@ -3849,9 +3872,9 @@ dependencies = [
 
 [[package]]
 name = "reactive_stores_macro"
-version = "0.2.0"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "69f5d6b557ce3b0ac9644faf1677b8f45253c02fa69e14acc55d9695955e4af9"
+checksum = "2f2bfb3b29c0b93d2d58a157b2a6783957bb592b296ab0b98a18fc3cdc574b07"
 dependencies = [
  "convert_case 0.8.0",
  "proc-macro-error2",

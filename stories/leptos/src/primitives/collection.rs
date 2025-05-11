@@ -1,6 +1,6 @@
 use std::marker::PhantomData;
 
-use leptos::*;
+use leptos::prelude::*;
 use radix_leptos_collection::*;
 
 #[component]

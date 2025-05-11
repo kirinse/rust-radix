@@ -2,9 +2,12 @@ use std::marker::PhantomData;
 use std::rc::Rc;
 use std::{collections::HashMap, fmt::Debug};
 
-use leptos::{html::AnyElement, prelude::*};
+use leptos::context::Provider;
+use leptos::prelude::*;
+use leptos_node_ref::AnyNodeRef;
 use nanoid::nanoid;
 use radix_leptos_compose_refs::use_composed_refs;
+use radix_leptos_slot::{Slot, SlotWrapper};
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq)]
 struct CollectionItemId(String);
@@ -17,7 +20,7 @@ impl CollectionItemId {
 
 #[derive(Clone)]
 pub struct CollectionItemValue<ItemData> {
-    pub r#ref: NodeRef<AnyElement>,
+    pub r#ref: AnyNodeRef,
     pub data: ItemData,
 }
 
@@ -30,20 +33,23 @@ impl<ItemData: Debug> Debug for CollectionItemValue<ItemData> {
 }
 
 #[derive(Clone)]
-struct CollectionContextValue<ItemData: Clone + 'static> {
-    collection_ref: NodeRef<AnyElement>,
+struct CollectionContextValue<ItemData: Send + Sync + Clone + 'static> {
+    collection_ref: AnyNodeRef,
     item_map: RwSignal<HashMap<CollectionItemId, CollectionItemValue<ItemData>>>,
 }
 
+// We define a name for the “Root” like in your Tabs code
+const COLLECTION_NAME: &str = "Collection";
+
 #[component]
-pub fn CollectionProvider<ItemData: Clone + 'static>(
+pub fn CollectionProvider<ItemData: Send + Sync + Clone + 'static>(
     #[expect(unused_variables)]
     #[prop(into, optional)]
     item_data_type: Option<PhantomData<ItemData>>,
     children: ChildrenFn,
 ) -> impl IntoView {
     let context_value = CollectionContextValue::<ItemData> {
-        collection_ref: NodeRef::new(),
+        collection_ref: AnyNodeRef::new(),
         item_map: RwSignal::new(HashMap::new()),
     };
 
@@ -55,38 +61,42 @@ pub fn CollectionProvider<ItemData: Clone + 'static>(
 }
 
 #[component]
-pub fn CollectionSlot<ItemData: Clone + 'static>(
+pub fn CollectionSlot<ItemData: Send + Sync + Clone + 'static>(
     #[expect(unused_variables)]
     #[prop(into, optional)]
     item_data_type: Option<PhantomData<ItemData>>,
-    #[prop(optional)] node_ref: NodeRef<AnyElement>,
-    #[prop(attrs)] attrs: Vec<(&'static str, Attribute)>,
+    #[prop(optional)] node_ref: AnyNodeRef,
+    // #[prop(attrs)] attrs: Vec<(&'static str, Attribute)>,
     children: ChildrenFn,
 ) -> impl IntoView {
     let context = expect_context::<CollectionContextValue<ItemData>>();
     let composed_ref = use_composed_refs(vec![node_ref, context.collection_ref]);
 
     view! {
-        <Slot node_ref=composed_ref attrs=attrs>
-            {children()}
-        </Slot>
+        <SlotWrapper owner_name=COLLECTION_NAME>
+            <Slot slot
+                display_name="collection.Slot"
+                node_ref={composed_ref} {..}>
+                {children()}
+            </Slot>
+        </SlotWrapper>
     }
 }
 
 const ITEM_DATA_ATTR: &str = "data-radix-collection-item";
 
 #[component]
-pub fn CollectionItemSlot<ItemData: Clone + Debug + 'static>(
+pub fn CollectionItemSlot<ItemData: Clone + Debug + Send + Sync + 'static>(
     #[expect(unused_variables)]
     #[prop(into, optional)]
     item_data_type: Option<PhantomData<ItemData>>,
     #[prop(into, optional)] item_data: MaybeProp<ItemData>,
-    #[prop(optional)] node_ref: NodeRef<AnyElement>,
-    #[prop(attrs)] attrs: Vec<(&'static str, Attribute)>,
+    #[prop(optional)] node_ref: AnyNodeRef,
+    // #[prop(attrs)] attrs: Vec<(&'static str, Attribute)>,
     children: ChildrenFn,
 ) -> impl IntoView {
     let (id, _) = signal(CollectionItemId::new());
-    let item_ref = NodeRef::new();
+    let item_ref = AnyNodeRef::new();
     let composed_ref = use_composed_refs(vec![node_ref, item_ref]);
     let context = expect_context::<CollectionContextValue<ItemData>>();
 
@@ -110,14 +120,21 @@ pub fn CollectionItemSlot<ItemData: Clone + Debug + 'static>(
         });
     });
 
-    let mut attrs = attrs.clone();
-    attrs.extend([(ITEM_DATA_ATTR, "".into_attribute())]);
-
+    // let mut attrs = attrs.clone();
+    // attrs.extend([(ITEM_DATA_ATTR, "".into_attribute())]);
+    // let attrs = view! {<{..}/>}.attr(ITEM_DATA_ATTR, "");
     view! {
-        <Slot node_ref=composed_ref attrs=attrs>
-            {children()}
-        </Slot>
+        <SlotWrapper owner_name=COLLECTION_NAME>
+            <Slot slot
+                display_name="collection.Slot"
+                node_ref={composed_ref}
+                {..}
+            >
+                {children()}
+            </Slot>
+        </SlotWrapper>
     }
+    .attr(ITEM_DATA_ATTR, "")
 }
 
 fn node_list_to_vec(node_list: web_sys::NodeList) -> Vec<web_sys::Node> {
@@ -130,8 +147,8 @@ fn node_list_to_vec(node_list: web_sys::NodeList) -> Vec<web_sys::Node> {
     nodes
 }
 
-pub fn use_collection<ItemData: Clone + 'static>(
-) -> Rc<dyn Fn() -> Vec<CollectionItemValue<ItemData>>> {
+pub fn use_collection<ItemData: Send + Sync + Clone + 'static>()
+-> Rc<dyn Fn() -> Vec<CollectionItemValue<ItemData>>> {
     let context = expect_context::<CollectionContextValue<ItemData>>();
 
     let get_items = move || {
