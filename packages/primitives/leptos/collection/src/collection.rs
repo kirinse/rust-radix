@@ -71,12 +71,18 @@ pub fn CollectionSlot<ItemData: Send + Sync + Clone + 'static>(
 ) -> impl IntoView {
     let context = expect_context::<CollectionContextValue<ItemData>>();
     let composed_ref = use_composed_refs(vec![node_ref, context.collection_ref]);
+    
+    Effect::new(move |_| {
+        leptos::logging::log!("[CollectionSlot] composed_ref: {:?}", composed_ref.get());
+    });
 
     view! {
-        <SlotWrapper owner_name=COLLECTION_NAME>
+        <SlotWrapper owner_name=COLLECTION_NAME node_ref={composed_ref}>
             <Slot slot
                 display_name="collection.Slot"
-                node_ref={composed_ref} {..}>
+                node_ref={composed_ref}
+                {..}
+            >
                 {children()}
             </Slot>
         </SlotWrapper>
@@ -124,7 +130,7 @@ pub fn CollectionItemSlot<ItemData: Clone + Debug + Send + Sync + 'static>(
     // attrs.extend([(ITEM_DATA_ATTR, "".into_attribute())]);
     // let attrs = view! {<{..}/>}.attr(ITEM_DATA_ATTR, "");
     view! {
-        <SlotWrapper owner_name=COLLECTION_NAME>
+        <SlotWrapper owner_name=COLLECTION_NAME node_ref={composed_ref}>
             <Slot slot
                 display_name="collection.Slot"
                 node_ref={composed_ref}
@@ -153,6 +159,7 @@ pub fn use_collection<ItemData: Send + Sync + Clone + 'static>()
 
     let get_items = move || {
         let collection_node = context.collection_ref.get();
+        leptos::logging::log!("collection_node: {:?}", collection_node);
         if let Some(collection_node) = collection_node {
             let ordered_nodes = node_list_to_vec(
                 collection_node

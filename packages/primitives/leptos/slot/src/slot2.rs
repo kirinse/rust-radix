@@ -41,6 +41,14 @@ pub fn get_element_ref(element: Slot) -> AnyNodeRef {
 
 #[allow(unused_variables)]
 #[component]
-pub fn SlotWrapper(#[prop(into)] owner_name: String, slot: Slot) -> impl IntoView {
-    ()
+pub fn SlotWrapper(
+    #[prop(into)] owner_name: String,
+    slot: Slot,
+    node_ref: AnyNodeRef,
+) -> impl IntoView {
+    if let Some(child) = slot.children {
+        child()
+    } else {
+        ().into_any()
+    }
 }

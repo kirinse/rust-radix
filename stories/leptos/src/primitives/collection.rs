@@ -1,6 +1,7 @@
 use std::marker::PhantomData;
 
 use leptos::prelude::*;
+use leptos_node_ref::AnyNodeRef;
 use radix_leptos_collection::*;
 
 #[component]
@@ -10,7 +11,7 @@ pub fn Basic() -> impl IntoView {
             <Item>Red</Item>
             <Item disabled=true>Green</Item>
             <Item>Blue</Item>
-            <LogItems />
+            <LogItems name="Basic items:" />
         </List>
     }
 }
@@ -30,6 +31,7 @@ pub fn WithElementsInBetween() -> impl IntoView {
         </List>
     }
 }
+
 #[component]
 fn Tomato() -> impl IntoView {
     view! {
@@ -70,7 +72,7 @@ pub fn WithFragment() -> impl IntoView {
 
 #[component]
 pub fn DynamicInsertion() -> impl IntoView {
-    let (has_tomato, set_has_tomato) = create_signal(false);
+    let (has_tomato, set_has_tomato) = signal(false);
 
     view! {
         <button on:click=move |_| set_has_tomato.set(!has_tomato.get())>
@@ -101,7 +103,7 @@ fn WrappedItems(#[prop(into)] has_tomato: Signal<bool>) -> impl IntoView {
 
 #[component]
 pub fn WithChangingItem() -> impl IntoView {
-    let (is_disabled, set_is_disabled) = create_signal(false);
+    let (is_disabled, set_is_disabled) = signal(false);
 
     view! {
         <button on:click=move |_| set_is_disabled.set(!is_disabled.get())>
@@ -131,11 +133,11 @@ pub fn Nested() -> impl IntoView {
                     <Item>2.1</Item>
                     <Item>2.2</Item>
                     <Item>2.3</Item>
-                    <LogItems name="items inside 2".into() />
+                    <LogItems name="items inside 2" />
                 </List>
             </Item>
             <Item>3</Item>
-            <LogItems name="top-level items".into() />
+            <LogItems name="top-level items" />
         </List>
     }
 }
@@ -151,10 +153,10 @@ const ITEM_DATA_PHANTHOM: PhantomData<ItemData> = PhantomData;
 #[component]
 fn List(children: ChildrenFn) -> impl IntoView {
     let children = StoredValue::new(children);
-
+    let node_ref = AnyNodeRef::new();
     view! {
         <CollectionProvider item_data_type=ITEM_DATA_PHANTHOM>
-            <CollectionSlot item_data_type=ITEM_DATA_PHANTHOM>
+            <CollectionSlot item_data_type=ITEM_DATA_PHANTHOM node_ref=node_ref>
                 <ul style:width="200px">
                     {children.with_value(|children| children())}
                 </ul>
@@ -179,7 +181,7 @@ fn Item(#[prop(into, optional)] disabled: MaybeProp<bool>, children: ChildrenFn)
 }
 
 #[component]
-fn LogItems(#[prop(default = "items".to_string())] name: String) -> impl IntoView {
+fn LogItems(#[prop(into, default = "items".into())] name: String) -> impl IntoView {
     let get_items = use_collection::<ItemData>();
 
     Effect::new(move |_| {

@@ -12,3 +12,4 @@ leptos.workspace = true
 leptos_dom.workspace = true
 radix-leptos-compose-refs.workspace = true
 leptos-node-ref.workspace = true
+web-sys.workspace = true

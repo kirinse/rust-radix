@@ -15,22 +15,23 @@ console_error_panic_hook.workspace = true
 leptos = { workspace = true, features = ["csr"] }
 leptos_router.workspace = true
 log.workspace = true
+leptos-node-ref.workspace = true
+
 radix-leptos-accessible-icon.workspace = true
 radix-leptos-arrow.workspace = true
 radix-leptos-aspect-ratio.workspace = true
 radix-leptos-avatar.workspace = true
 radix-leptos-checkbox.workspace = true
-# radix-leptos-collection = { path = "../../packages/primitives/leptos/collection" }
+radix-leptos-collection.workspace = true
 # radix-leptos-focus-scope = { path = "../../packages/primitives/leptos/focus-scope" }
 radix-leptos-label.workspace = true
 # radix-leptos-menu = { path = "../../packages/primitives/leptos/menu" }
-# radix-leptos-popper = { path = "../../packages/primitives/leptos/popper" }
-# radix-leptos-portal = { path = "../../packages/primitives/leptos/portal", features = [
-#     "csr",
-# ] }
+radix-leptos-popper.workspace = true
+radix-leptos-portal.workspace = true
 radix-leptos-presence.workspace = true
 radix-leptos-progress.workspace = true
 radix-leptos-separator.workspace = true
+radix-leptos-slot.workspace = true
 radix-leptos-switch.workspace = true
 radix-leptos-tabs.workspace = true
 radix-leptos-toggle.workspace = true
@@ -38,3 +39,4 @@ radix-leptos-visually-hidden.workspace = true
 tailwind_fuse.workspace = true
 web-sys.workspace = true
 reactive_stores.workspace = true
+send_wrapper.workspace = true

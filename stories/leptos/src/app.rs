@@ -5,7 +5,8 @@ use leptos_router::{
 };
 
 use crate::primitives::{
-    accessible_icon, arrow, aspect_ratio, avatar, checkbox, label, progress, separator, switch, toggle, visually_hidden
+    accessible_icon, arrow, aspect_ratio, avatar, checkbox, collection, label, popper, portal,
+    progress, separator, slot, switch, toggle, visually_hidden,
 };
 
 #[component]
@@ -83,19 +84,19 @@ pub fn App() -> impl IntoView {
                             <li><NavLink href="/checkbox/chromatic">Chromatic</NavLink></li>
                         </ul>
                     </li>
-                    // <li>
-                    //     Collection
+                    <li>
+                        Collection
 
-                    //     <ul class="list-none m-0 ms-4 p-0">
-                    //         <li><NavLink href="/collection/basic">Basic</NavLink></li>
-                    //         <li><NavLink href="/collection/with-element-in-between">With Element In Between</NavLink></li>
-                    //         <li><NavLink href="/collection/with-wrapped-item">With Wrapped Item</NavLink></li>
-                    //         <li><NavLink href="/collection/with-fragment">With Fragment</NavLink></li>
-                    //         <li><NavLink href="/collection/dynamic-insertion">Dynamic Insertion</NavLink></li>
-                    //         <li><NavLink href="/collection/with-changing-item">With Changing Item</NavLink></li>
-                    //         <li><NavLink href="/collection/nested">Nested</NavLink></li>
-                    //     </ul>
-                    // </li>
+                        <ul class="list-none m-0 ms-4 p-0">
+                            <li><NavLink href="/collection/basic">Basic</NavLink></li>
+                            <li><NavLink href="/collection/with-element-in-between">With Element In Between</NavLink></li>
+                            <li><NavLink href="/collection/with-wrapped-item">With Wrapped Item</NavLink></li>
+                            <li><NavLink href="/collection/with-fragment">With Fragment</NavLink></li>
+                            <li><NavLink href="/collection/dynamic-insertion">Dynamic Insertion</NavLink></li>
+                            <li><NavLink href="/collection/with-changing-item">With Changing Item</NavLink></li>
+                            <li><NavLink href="/collection/nested">Nested</NavLink></li>
+                        </ul>
+                    </li>
                     // <li>
                     //     Focus Scope
 
@@ -121,27 +122,27 @@ pub fn App() -> impl IntoView {
                     //         <li><NavLink href="/menu/styled">Styled</NavLink></li>
                     //     </ul>
                     // </li>
-                    // <li>
-                    //     Popper
+                    <li>
+                        Popper
 
-                    //     <ul class="list-none m-0 ms-4 p-0">
-                    //         <li><NavLink href="/popper/styled">Styled</NavLink></li>
-                    //         <li><NavLink href="/popper/with-custom-arrow">With Custom Arrow</NavLink></li>
-                    //         <li><NavLink href="/popper/animated">Animated</NavLink></li>
-                    //         <li><NavLink href="/popper/with-portal">With Portal</NavLink></li>
-                    //         <li><NavLink href="/popper/with-update-position-strategy-always">With Update Position Strategy Always</NavLink></li>
-                    //         <li><NavLink href="/popper/chromatic">Chromatic</NavLink></li>
-                    //     </ul>
-                    // </li>
-                    // <li>
-                    //     Portal
+                        <ul class="list-none m-0 ms-4 p-0">
+                            <li><NavLink href="/popper/styled">Styled</NavLink></li>
+                            <li><NavLink href="/popper/with-custom-arrow">With Custom Arrow</NavLink></li>
+                            <li><NavLink href="/popper/animated">Animated</NavLink></li>
+                            <li><NavLink href="/popper/with-portal">With Portal</NavLink></li>
+                            <li><NavLink href="/popper/with-update-position-strategy-always">With Update Position Strategy Always</NavLink></li>
+                            <li><NavLink href="/popper/chromatic">Chromatic</NavLink></li>
+                        </ul>
+                    </li>
+                    <li>
+                        Portal
 
-                    //     <ul class="list-none m-0 ms-4 p-0">
-                    //         <li><NavLink href="/portal/base">Base</NavLink></li>
-                    //         <li><NavLink href="/portal/custom-container">Custom Container</NavLink></li>
-                    //         <li><NavLink href="/portal/chromatic">Chromatic</NavLink></li>
-                    //     </ul>
-                    // </li>
+                        <ul class="list-none m-0 ms-4 p-0">
+                            <li><NavLink href="/portal/base">Base</NavLink></li>
+                            <li><NavLink href="/portal/custom-container">Custom Container</NavLink></li>
+                            <li><NavLink href="/portal/chromatic">Chromatic</NavLink></li>
+                        </ul>
+                    </li>
                     // <li>
                     //     Presence
 
@@ -170,15 +171,15 @@ pub fn App() -> impl IntoView {
                             <li><NavLink href="/separator/styled">Styled</NavLink></li>
                         </ul>
                     </li>
-                    // <li>
-                    //     Slot
+                    <li>
+                        Slot
 
-                    //     <ul class="list-none m-0 ms-4 p-0">
-                    //         <li><NavLink href="/slot/without-slottable">Without Slottable</NavLink></li>
-                    //         <li><NavLink href="/slot/with-slottable">With Slottable</NavLink></li>
-                    //         // TODO
-                    //     </ul>
-                    // </li>
+                        <ul class="list-none m-0 ms-4 p-0">
+                            <li><NavLink href="/slot/without-slottable">Without Slottable</NavLink></li>
+                            <li><NavLink href="/slot/with-slottable">With Slottable</NavLink></li>
+                            // TODO
+                        </ul>
+                    </li>
                     <li>
                         Switch
 
@@ -231,13 +232,13 @@ pub fn App() -> impl IntoView {
                     <Route path=path!("/checkbox/animated") view=checkbox::Animated />
                     <Route path=path!("/checkbox/chromatic") view=checkbox::Chromatic />
 
-                    // <Route path="/collection/basic" view=collection::Basic />
-                    // <Route path="/collection/with-element-in-between" view=collection::WithElementsInBetween />
-                    // <Route path="/collection/with-wrapped-item" view=collection::WithWrappedItem />
-                    // <Route path="/collection/with-fragment" view=collection::WithFragment />
-                    // <Route path="/collection/dynamic-insertion" view=collection::DynamicInsertion />
-                    // <Route path="/collection/with-changing-item" view=collection::WithChangingItem />
-                    // <Route path="/collection/nested" view=collection::Nested />
+                    <Route path=path!("/collection/basic") view=collection::Basic />
+                    <Route path=path!("/collection/with-element-in-between") view=collection::WithElementsInBetween />
+                    <Route path=path!("/collection/with-wrapped-item") view=collection::WithWrappedItem />
+                    <Route path=path!("/collection/with-fragment") view=collection::WithFragment />
+                    <Route path=path!("/collection/dynamic-insertion") view=collection::DynamicInsertion />
+                    <Route path=path!("/collection/with-changing-item") view=collection::WithChangingItem />
+                    <Route path=path!("/collection/nested") view=collection::Nested />
 
                     // <Route path="/focus-scope/basic" view=focus_scope::Basic />
                     // <Route path="/focus-scope/multiple" view=focus_scope::Multiple />
@@ -249,16 +250,16 @@ pub fn App() -> impl IntoView {
 
                     // <Route path="/menu/styled" view=menu::Styled />
 
-                    // <Route path="/popper/styled" view=popper::Styled />
-                    // <Route path="/popper/with-custom-arrow" view=popper::WithCustomArrow />
-                    // <Route path="/popper/animated" view=popper::Animated />
-                    // <Route path="/popper/with-portal" view=popper::WithPortal />
-                    // <Route path="/popper/with-update-position-strategy-always" view=popper::WithUpdatePositionStrategyAlways />
-                    // <Route path="/popper/chromatic" view=popper::Chromatic />
+                    <Route path=path!("/popper/styled") view=popper::Styled />
+                    <Route path=path!("/popper/with-custom-arrow") view=popper::WithCustomArrow />
+                    <Route path=path!("/popper/animated") view=popper::Animated />
+                    <Route path=path!("/popper/with-portal") view=popper::WithPortal />
+                    <Route path=path!("/popper/with-update-position-strategy-always") view=popper::WithUpdatePositionStrategyAlways />
+                    <Route path=path!("/popper/chromatic") view=popper::Chromatic />
 
-                    // <Route path="/portal/base" view=portal::Base />
-                    // <Route path="/portal/custom-container" view=portal::CustomContainer />
-                    // <Route path="/portal/chromatic" view=portal::Chromatic />
+                    <Route path=path!("/portal/base") view=portal::Base />
+                    <Route path=path!("/portal/custom-container") view=portal::CustomContainer />
+                    <Route path=path!("/portal/chromatic") view=portal::Chromatic />
 
                     // <Route path="/presence/basic" view=presence::Basic />
                     // <Route path="/presence/with-mount-animation" view=presence::WithMountAnimation />
@@ -273,8 +274,8 @@ pub fn App() -> impl IntoView {
 
                     <Route path=path!("/separator/styled") view=separator::Styled />
 
-                    // <Route path="/slot/without-slottable" view=slot::WithoutSlottable />
-                    // <Route path="/slot/with-slottable" view=slot::WithSlottable />
+                    <Route path=path!("/slot/without-slottable") view=slot::WithoutSlottable />
+                    <Route path=path!("/slot/with-slottable") view=slot::WithSlottable />
 
                     <Route path=path!("/switch/styled") view=switch::Styled />
                     <Route path=path!("/switch/controlled") view=switch::Controlled />

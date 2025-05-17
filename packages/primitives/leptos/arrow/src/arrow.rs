@@ -63,5 +63,4 @@ pub fn Arrow(
 
 pub mod primitive {
     pub use super::*;
-    pub use Arrow as Root;
 }
