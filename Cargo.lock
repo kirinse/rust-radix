@@ -2343,8 +2343,9 @@ dependencies = [
 
 [[package]]
 name = "leptos-use"
-version = "0.16.0-rc1"
-source = "git+https://github.com/Synphonyte/leptos-use?branch=main#b2f3117df0a97be03fb588869a53620e83b37b82"
+version = "0.16.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c6eac17e7d306b4ad67158aba97c1490884ba304add4321069cb63fe0834c3b1"
 dependencies = [
  "cfg-if",
  "chrono",
@@ -3491,11 +3492,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "radix-leptos-use-rect"
+version = "0.0.2"
+dependencies = [
+ "leptos",
+ "leptos-node-ref",
+ "radix-observe",
+ "send_wrapper",
+ "web-sys",
+]
+
+[[package]]
 name = "radix-leptos-use-size"
 version = "0.0.2"
 dependencies = [
  "leptos",
  "leptos-node-ref",
+ "radix-observe",
  "send_wrapper",
  "web-sys",
 ]
@@ -3512,6 +3525,14 @@ dependencies = [
 [[package]]
 name = "radix-number"
 version = "0.0.2"
+
+[[package]]
+name = "radix-observe"
+version = "0.0.2"
+dependencies = [
+ "send_wrapper",
+ "web-sys",
+]
 
 [[package]]
 name = "radix-yew-arrow"

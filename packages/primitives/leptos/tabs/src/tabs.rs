@@ -1,7 +1,4 @@
-use leptos::attribute_interceptor::AttributeInterceptor;
-use leptos::context::Provider;
-use leptos::html;
-use leptos::prelude::*;
+use leptos::{attribute_interceptor::AttributeInterceptor, context::Provider, html, prelude::*};
 use leptos_maybe_callback::MaybeCallback;
 use leptos_node_ref::AnyNodeRef;
 use leptos_typed_fallback_show::TypedFallbackShow;

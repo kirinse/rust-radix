@@ -13,6 +13,7 @@ members = [
     "book-examples/*/*",
     "packages/colors",
     "packages/icons/*",
+    "packages/primitives/core/observe",
     # -- Leptos Primitives (commented until they're upgraded) --
     "packages/primitives/leptos/accessible-icon",
     "packages/primitives/leptos/arrow",
@@ -48,7 +49,7 @@ members = [
     # -- Themes, Scripts, and Stories --
     "packages/themes/yew",
     "scripts",
-    "stories/*",
+    "stories/*", "packages/primitives/leptos/use-rect",
 ]
 resolver = "2"
 
@@ -73,8 +74,8 @@ leptos = "0.8"
 leptos_dom = "0.8"
 leptos_router = "0.8"
 reactive_stores = "0.2"
-leptos-use = { git = "https://github.com/Synphonyte/leptos-use", branch = "main" }
-send_wrapper = "0.6.0"
+leptos-use = "0.16"
+send_wrapper = "0.6"
 
 # https://github.com/RustForWeb/leptos-utils
 leptos-maybe-callback = "0.2"
@@ -125,8 +126,10 @@ radix-leptos-toggle.path = "./packages/primitives/leptos/toggle"
 radix-leptos-use-controllable-state.path = "./packages/primitives/leptos/use-controllable-state"
 radix-leptos-use-escape-keydown.path = "./packages/primitives/leptos/use-escape-keydown"
 radix-leptos-use-previous.path = "./packages/primitives/leptos/use-previous"
+radix-leptos-use-rect = { path = "./packages/primitives/leptos/use-rect", version = "0.0.2" }
 radix-leptos-use-size.path = "./packages/primitives/leptos/use-size"
 radix-leptos-visually-hidden.path = "./packages/primitives/leptos/visually-hidden"
+radix-observe = { path = "./packages/primitives/core/observe", version = "0.0.2" }
 
 [patch.crates-io]
 yew = { git = "https://github.com/RustForWeb/yew.git", branch = "feature/use-composed-ref" }
